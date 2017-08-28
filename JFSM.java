@@ -267,7 +267,7 @@ class AFD extends Automate {
 	}
 }
 
-public class FSM {
+public class JFSM {
     public static void main(String argv []) {
 
     	Set<String> Ae = new HashSet<String>();      
