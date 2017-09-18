@@ -89,6 +89,12 @@ class Transition {
 	public void action(Context ctx) {}
 }
 
+class EpsilonTransition extends Transition {
+	public EpsilonTransition(String s, String c) {
+		super(s,"",c);
+	}
+}
+
 class Context {
 
 }
@@ -106,8 +112,10 @@ abstract class Automate {
 	Etat trash;
 
 	public Automate(Set<String> A, Set<Etat> Q, Set<Transition> mu, Context ctx) {
+		assert A.size()>0 : "A ne peut pas être vide" ;
 		this.A = A;
 		this.mu = new HashSet<Transition>();
+		assert Q.size()>0 : "Q ne peut pas être vide" ;
 		this.Q = new HashMap<String,Etat>();
 
 		trash = new Trash();
@@ -244,9 +252,10 @@ class AFN extends Automate {
 class AFD extends Automate {
 	private boolean estDeterministe;
 
-	public AFD(Set<String> A, Set<Etat> Q, Set<Transition> mu, Context ctx){
+	public AFD(Set<String> A, Set<Etat> Q, Set<Transition> mu, String i,  Context ctx){
 		super(A,Q,mu,ctx);
-
+		setInitial(i);
+		assert testDeterminisme(this) : "L'automate doit être déterministe";
 	}
 
 	static public boolean testDeterminisme(Automate T) {
