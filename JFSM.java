@@ -47,6 +47,36 @@ import java.util.HashMap;
 
 import java.util.Iterator;
 
+
+class JFSMException extends Exception {
+	/** 
+	* Crée une nouvelle instance de JFSMException 
+	*/  
+	public JFSMException() {}  
+	/** 
+	* Crée une nouvelle instance de JFSMException 
+	* @param message Le message détaillant exception 
+	*/  
+	public JFSMException(String message) {  
+		super(message); 
+	}  
+	/** 
+	* Crée une nouvelle instance de JFSMException 
+	* @param cause L'exception à l'origine de cette exception 
+	*/  
+	public JFSMException(Throwable cause) {  
+		super(cause); 
+	}  
+	/** 
+	* Crée une nouvelle instance de JFSMException 
+	* @param message Le message détaillant exception 
+	* @param cause L'exception à l'origine de cette exception 
+	*/  
+	public JFSMException(String message, Throwable cause) {  
+		super(message, cause); 
+	}
+}
+
 abstract class Automate {
 	protected Map<String,Etat> Q;
 	protected Set<String> F, I;
@@ -65,7 +95,7 @@ abstract class Automate {
 		}
 	}
 
-	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) {
+	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
 		assert A.size()>0 : "A ne peut pas être vide" ;
 		this.A = A;
 		this.mu = new HashSet<Transition>();
@@ -121,7 +151,11 @@ abstract class Automate {
 		Iterator<String> i = I.iterator();
 		while(i.hasNext()) {
 			String n = i.next();
-			setInitial(n);
+			try {
+				setInitial(n);
+			} catch (JFSMException e) {
+				throw new JFSMException("Création automate impossible",e);
+			}
 		}
 
 		// On collecte les états finaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
@@ -138,31 +172,34 @@ abstract class Automate {
 	}
 
 	public void addEtat(Etat e){
-		Q.put(e.name,e);
+		if (!Q.containsKey(e))
+			Q.put(e.name,e);
 	}
 
 	public Etat getEtat(String n) {
-		return Q.get(n);
+		if (Q.containsKey(n))
+			return Q.get(n);
+		else return null;
 	}
 
 	public void setA(Set<String> A){
 		this.A = A;
 	}
 
-	public void setInitial(String e) {	
+	public void setInitial(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
 			I.add(e);
 			Etat etat = Q.get(e);
 			etat.isInitial = true;
-		}
+		} else throw new JFSMException("Etat absent:"+e);
 	}
 
-	public void setFinal(String e) {	
+	public void setFinal(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
 			F.add(e);
 			Etat etat = Q.get(e);
 			etat.isFinal = true;
-		}
+		} else throw new JFSMException("Etat absent:"+e);
 	}
 
 	public boolean isInitial(String e){
@@ -190,7 +227,7 @@ abstract class Automate {
 class AFD extends Automate {
 	private String i;
 
-	public AFD(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu){
+	public AFD(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,F,new HashSet<String>(),mu);
 		I.add(i);
 		this.i = i;
@@ -204,7 +241,8 @@ class AFD extends Automate {
 	}
 
 	static public boolean testDeterminisme(Automate T) {
-		if (T.I.size() !=1) {
+		if (T.I.size() !=1) { // A compléter !
+			// un seul état initial
 			return false;
 		} else {
 			return true;
@@ -221,7 +259,7 @@ class AFD extends Automate {
 }
 
 public class JFSM {
-    public static void main(String argv []) {
+    public static void main(String argv []) throws JFSMException {
 
     	Set<String> Ae = new HashSet<String>();      
     	Ae.add("a");Ae.add("b");Ae.add("c");
@@ -240,6 +278,10 @@ public class JFSM {
 
     	Set<String> F = new HashSet<String>();
     	F.add("3");
+    	// try {
     	Automate afn = new AFD(Ae, Q, "1", F, mu);
+    	// } catch (JFSMException e) {
+    	// 	System.out.println("Echec création");
+    	// }
    }
 }
