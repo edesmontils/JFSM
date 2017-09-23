@@ -33,7 +33,7 @@
  * Created: 2017-08-25
  *
  * @author Emmanuel Desmontils
- * @version 1
+ * @version 1.0
  */
 
 import java.util.Set;
@@ -103,8 +103,6 @@ abstract class Automate {
 	protected Map<String,Etat> Q;
 	protected Set<String> F, I;
 	protected Set<String> A;
-	List<String> histo;
-	//Map<String,Map<String,Transition>> mu;
 	Set<Transition> mu;
 	Context ctx;
 	String current;
@@ -195,58 +193,11 @@ abstract class Automate {
 		histo.clear();
 	}
 
-	public void next(String symbol) {
 		histo.add(current);
 	}
 
-	public boolean accepte(){return F.contains(current);}
 
 	public abstract boolean run(String s, String sep) ;
-}
-
-class AFN extends Automate {
-	private Map<String,Map<String,Transition>> mu2;
-
-	public AFN(Set<String> A, Set<Etat> Q, Set<Transition> mu, Context ctx){
-		super(A,Q,mu,ctx);
-		this.mu2 = new HashMap<String,Map<String,Transition>>();
-		Iterator<Transition> j = mu.iterator();
-		while(j.hasNext()) {
-			Transition t = j.next();
-			String s = t.source+t.symbol ;
-			Map<String,Transition> m = this.mu2.get(s);
-			if (m == null) {
-				this.mu2.put(s, new HashMap<String,Transition>());
-				this.mu2.get(s).put(t.name, t);
-			} else {
-				if (m.containsKey(t.name)) {
-					System.out.println("Transition dupliquée ! Seule la première version sera conservée.");
-				} else {
-					m.put(t.name,t);
-				}				
-			}
-		}
-
-		// i = this.Q.iterator();
-		// while(i.hasNext()) {
-		// 	Etat e = i.next();
-		// 	ia = this.A.iterator();
-		// 	while(ia.hasNext()){
-		// 		s = ia.next();
-		// 		t = new Transition(e, s, trash.name);
-		// 		this.mu.add(t);
-		// 	}
-		// }
-	}
-
-	public void next(String symbol) {
-		super.next(symbol);
-	}
-	public boolean run(String s, String sep) {return true;}
-
-	public AFD determinise() {
-		return null;
-	}
 }
 
 class AFD extends Automate {
@@ -267,8 +218,6 @@ class AFD extends Automate {
 		// return true;
 	}
 
-	public void next(String symbol) {
-		super.next(symbol);
 
 	}
 	public boolean run(String s, String sep) {
@@ -294,8 +243,6 @@ public class JFSM {
     	mu.add(new Transition("2","b","2"));
     	mu.add(new Transition("3","b","2"));
 
-    	Automate afn = new AFN(Ae, Q, mu, new Context());
-    	afn.setInitial("1");
     	afn.setFinal("3");
    }
 }
