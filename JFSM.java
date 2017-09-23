@@ -58,6 +58,13 @@ abstract class Automate {
 	int statut;
 	Etat trash;
 
+
+	class Trash extends Etat {
+		public Trash(){
+			super("---Trash---");
+		}
+	}
+
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) {
 		assert A.size()>0 : "A ne peut pas être vide" ;
 		this.A = A;
@@ -67,18 +74,18 @@ abstract class Automate {
 
 		trash = new Trash();
 		this.Q.put(trash.name,trash);
-		Iterator<String> ia = this.A.iterator();
+		Iterator<String> a = this.A.iterator();
 		Transition t;
 		String s;
-		while(ia.hasNext()){
-			s = ia.next();
+		while(a.hasNext()){
+			s = a.next();
 			t = new Transition(trash.name, s, trash.name);
 			this.mu.add(t);
 		}		
 
-		Iterator<Etat> i = Q.iterator();
-		while(i.hasNext()) {
-			Etat e = i.next();
+		Iterator<Etat> q = Q.iterator();
+		while(q.hasNext()) {
+			Etat e = q.next();
 			if (this.Q.containsKey(e.name)) {
 				System.out.println("Etat dupliqué ! Seule la première version sera conservée.");
 			} else {
@@ -86,7 +93,7 @@ abstract class Automate {
 			}
 		}
 
-		histo = new ArrayList<String>();
+		this.histo = new ArrayList<String>();
 
 		this.mu.addAll(mu);
 
@@ -108,8 +115,22 @@ abstract class Automate {
 		// 	}
 		// }
 
+		// On collecte les états initiaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
+		assert I.size()>0 : "I ne peut pas être vide" ;
 		this.I = new HashSet<String>();
+		Iterator<String> i = I.iterator();
+		while(i.hasNext()) {
+			String n = i.next();
+			setInitial(n);
+		}
+
+		// On collecte les états finaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
 		this.F = new HashSet<String>();
+		Iterator<String> f = F.iterator();
+		while(f.hasNext()) {
+			String n = f.next();
+			setFinal(n);
+		}
 	}
 
 	public void addTransition(Transition t) {
@@ -167,7 +188,6 @@ abstract class Automate {
 }
 
 class AFD extends Automate {
-	private boolean estDeterministe;
 	private String i;
 
 	public AFD(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu){
@@ -189,7 +209,6 @@ class AFD extends Automate {
 		} else {
 			return true;
 		}
-		// return true;
 	}
 
 	public boolean next(String symbol) {

@@ -47,8 +47,3 @@ class Etat {
 	}
 }
 
-class Trash extends Etat {
-	public Trash(){
-		super("---Trash---");
-	}
-}
