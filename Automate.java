@@ -160,14 +160,12 @@ abstract class Automate {
 	public void setInitial(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
 			I.add(e);
-			Etat etat = Q.get(e);
 		} else throw new JFSMException("Etat absent:"+e);
 	}
 
 	public void setFinal(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
 			F.add(e);
-			Etat etat = Q.get(e);
 		} else throw new JFSMException("Etat absent:"+e);
 	}
 
@@ -188,7 +186,7 @@ abstract class Automate {
 		return true;
 	}
 
-	public boolean accepte(){return F.contains(current);}
+	public boolean accepte(){return isFinal(current);}
 
 	public abstract boolean run(List<String> l) ;
 }

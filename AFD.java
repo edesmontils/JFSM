@@ -65,10 +65,10 @@ class AFD extends Automate {
 	}
 
 	static public boolean testDeterminisme(Automate T) {
-		if (T.I.size() !=1) { // A compléter !
-			// un seul état initial
+		if (T.I.size() !=1) {
 			return false;
 		} else {
+			// un seul état initial !
 			boolean ok = true;
 			Iterator<Transition> itT = T.mu.iterator();
 			Transition t ;
@@ -77,21 +77,23 @@ class AFD extends Automate {
 				ok = !t.isEpsilon();
 			}
 			if (ok) {
+				// pas d'epsilon-transition !
 				Iterator<Etat> itE = T.Q.values().iterator();
-				while (itE.hasNext() && ok){
+				while (itE.hasNext() && ok){// pour chaque état e...
 					Etat e = itE.next();
 					Iterator<String> itA = T.A.iterator();
-					while (itA.hasNext() && ok) {
+					while (itA.hasNext() && ok) {// pour chaque symbole a...
 						String a = itA.next();
 						int nb = 0;
 						itT = T.mu.iterator();
-						while(itT.hasNext()){
+						while(itT.hasNext()){ // compter le nombre de transitions qui partent de e avec a
 							t = itT.next();
 							if ((t.source==e.name) && (t.symbol == a)) nb += 1;
 						}
 						ok = nb <2 ;
 					}
 				}	
+				// Si ok : chaque état à au max 1 transition vers un autre état avec un symbol donné.
 				return ok;
 			} else return false;
 		}
@@ -128,7 +130,6 @@ class AFD extends Automate {
 class AFD2 extends AFD {// TODO.....
 	protected Map<String,Map<String,Transition>> mu2;
 
-
 	public AFD2(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,i,F,mu);
 
@@ -151,5 +152,4 @@ class AFD2 extends AFD {// TODO.....
 			}
 		}
 	}
-
 }
