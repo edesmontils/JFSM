@@ -38,12 +38,9 @@
 
 class Etat {
 	public String name;
-	public boolean isInitial, isFinal;
 
 	public Etat(String n) {
 		this.name = n;
-		isInitial = false;
-		isFinal = false;
 	}
 }
 

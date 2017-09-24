@@ -78,16 +78,14 @@ class JFSMException extends Exception {
 }
 
 abstract class Automate {
-	protected Map<String,Etat> Q;
-	protected Set<String> F, I;
-	protected Set<String> A;
-	protected List<String> histo;
+	public Map<String,Etat> Q;
+	public Set<String> F, I;
+	public Set<String> A;
+	public List<String> histo;
 	//protected Map<String,Map<String,Transition>> mu2;
 	Set<Transition> mu;
 	String current;
-	int statut;
 	Etat trash;
-
 
 	class Trash extends Etat {
 		public Trash(){
@@ -96,12 +94,16 @@ abstract class Automate {
 	}
 
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
+		// Ajout de l'alphabet
 		assert A.size()>0 : "A ne peut pas être vide" ;
 		this.A = A;
 		this.mu = new HashSet<Transition>();
+
+		// Ajout des états
 		assert Q.size()>0 : "Q ne peut pas être vide" ;
 		this.Q = new HashMap<String,Etat>();
 
+		// Création de l'état poubelle... pour faciliter l'exécution...
 		trash = new Trash();
 		this.Q.put(trash.name,trash);
 		Iterator<String> a = this.A.iterator();
@@ -123,9 +125,31 @@ abstract class Automate {
 			}
 		}
 
+		// Création de l'historique (chemin)
 		this.histo = new ArrayList<String>();
 
+		// Ajout des transitions
 		this.mu.addAll(mu);
+
+		// On ajoute les transitions vers l'état poubelle
+		Iterator<Etat> itE = this.Q.values().iterator();
+		while (itE.hasNext()){
+			Etat e = itE.next();
+			Iterator<String> itA = this.A.iterator();
+			while (itA.hasNext()) {
+				s = itA.next();
+				int nb = 0;
+				Iterator<Transition> itT = this.mu.iterator();
+				while(itT.hasNext()){
+					t = itT.next();
+					if ((t.source==e.name) && (t.symbol == s)) nb += 1;
+				}
+				if (nb==0) {
+					t = new Transition(e.name, s, trash.name);
+					this.mu.add(t);
+				}
+			}
+		}	
 
 		// this.mu2 = new HashMap<String,Map<String,Transition>>();
 		// Iterator<Transition> j = mu.iterator();
@@ -146,16 +170,12 @@ abstract class Automate {
 		// }
 
 		// On collecte les états initiaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
-		assert I.size()>0 : "I ne peut pas être vide" ;
+		// assert I.size()>0 : "I ne peut pas être vide" ;
 		this.I = new HashSet<String>();
 		Iterator<String> i = I.iterator();
 		while(i.hasNext()) {
 			String n = i.next();
-			try {
-				setInitial(n);
-			} catch (JFSMException e) {
-				throw new JFSMException("Création automate impossible",e);
-			}
+			setInitial(n);
 		}
 
 		// On collecte les états finaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
@@ -190,7 +210,6 @@ abstract class Automate {
 		if (Q.containsKey(e)) {
 			I.add(e);
 			Etat etat = Q.get(e);
-			etat.isInitial = true;
 		} else throw new JFSMException("Etat absent:"+e);
 	}
 
@@ -198,7 +217,6 @@ abstract class Automate {
 		if (Q.containsKey(e)) {
 			F.add(e);
 			Etat etat = Q.get(e);
-			etat.isFinal = true;
 		} else throw new JFSMException("Etat absent:"+e);
 	}
 
@@ -219,17 +237,18 @@ abstract class Automate {
 		return true;
 	}
 
-	public boolean accepte(){return F.contains(current);} // pas suffisent !!!!!
+	public boolean accepte(){return F.contains(current);}
 
-	public abstract boolean run(String s, String sep) ;
+	public abstract boolean run(List<String> l) ;
 }
 
 class AFD extends Automate {
 	private String i;
 
 	public AFD(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
-		super(A,Q,F,new HashSet<String>(),mu);
-		I.add(i);
+		super(A,Q,new HashSet<String>(),F,mu);
+		assert this.Q.containsKey(i) : "i n'est pas un état" ;
+		setInitial(i);
 		this.i = i;
 		assert testDeterminisme(this) : "L'automate doit être déterministe";
 		init();
@@ -245,16 +264,59 @@ class AFD extends Automate {
 			// un seul état initial
 			return false;
 		} else {
-			return true;
+			boolean ok = true;
+			Iterator<Transition> itT = T.mu.iterator();
+			Transition t ;
+			while(itT.hasNext() && ok){
+				t = itT.next();
+				ok = !t.isEpsilon();
+			}
+			if (ok) {
+				Iterator<Etat> itE = T.Q.values().iterator();
+				while (itE.hasNext() && ok){
+					Etat e = itE.next();
+					Iterator<String> itA = T.A.iterator();
+					while (itA.hasNext() && ok) {
+						String a = itA.next();
+						int nb = 0;
+						itT = T.mu.iterator();
+						while(itT.hasNext()){
+							t = itT.next();
+							if ((t.source==e.name) && (t.symbol == a)) nb += 1;
+						}
+						ok = nb <2 ;
+					}
+				}	
+				return ok;
+			} else return false;
 		}
 	}
 
 	public boolean next(String symbol) {
-		return super.next(symbol);
-
+		super.next(symbol);
+		Iterator<Transition> it = mu.iterator();
+		boolean ok = false;
+		Transition t = null ;
+		while(it.hasNext() && (!ok)){
+			t = it.next();
+			ok = (t.source==current) && (t.symbol == symbol);
+		}
+		if (ok) {
+			current = t.cible;
+			return true;
+		} else return false;
 	}
-	public boolean run(String s, String sep) {
-		return true;
+
+	public boolean run(List<String> l) {
+		String symbol;
+		boolean ok = false;
+		init();
+		Iterator<String> il = l.iterator();
+		while(il.hasNext()){
+			symbol = il.next();
+        	next(symbol);
+		}
+		return isFinal(current);
 	}
 }
 
@@ -268,20 +330,24 @@ public class JFSM {
     	Q.add(new Etat("1"));Q.add(new Etat("2"));Q.add(new Etat("3"));
 
     	Set<Transition> mu = new HashSet<Transition>();
-    	Transition t;
     	mu.add(new Transition("1","a","2"));
     	mu.add(new Transition("1","b","3"));
-    	mu.add(new Transition("2","c","1"));
+    	mu.add(new Transition("2","a","1"));
     	mu.add(new Transition("2","c","3"));
     	mu.add(new Transition("2","b","2"));
     	mu.add(new Transition("3","b","2"));
 
     	Set<String> F = new HashSet<String>();
     	F.add("3");
-    	// try {
     	Automate afn = new AFD(Ae, Q, "1", F, mu);
-    	// } catch (JFSMException e) {
-    	// 	System.out.println("Echec création");
-    	// }
+    	afn.next("a");
+    	afn.next("c");
+    	System.out.println(afn.accepte());
+    	
+    	List<String> l = new ArrayList<String>();
+    	l.add("a");l.add("c");
+    	afn.run(l);
+    	System.out.println(afn.accepte());
+    	System.out.println(afn.histo);
    }
 }
