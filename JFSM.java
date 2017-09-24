@@ -50,8 +50,8 @@ import java.util.Iterator;
 public class JFSM {
     public static void main(String argv []) throws JFSMException {
 
-    	Set<String> Ae = new HashSet<String>();      
-    	Ae.add("a");Ae.add("b");Ae.add("c");
+    	Set<String> A = new HashSet<String>();      
+    	A.add("a");A.add("b");A.add("c");
 
     	Set<Etat> Q = new HashSet<Etat>();
     	Q.add(new Etat("1"));Q.add(new Etat("2"));Q.add(new Etat("3"));
@@ -66,7 +66,7 @@ public class JFSM {
 
     	Set<String> F = new HashSet<String>();
     	F.add("3");
-    	Automate afn = new AFD(Ae, Q, "1", F, mu);
+    	Automate afn = new AFD(A, Q, "1", F, mu);
     	afn.next("a");
     	afn.next("c");
     	System.out.println(afn.accepte());
