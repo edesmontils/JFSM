@@ -49,17 +49,31 @@ class Transition {
 	}
 
 	public Transition(String s, String c) {
-		this(s,"",c);
+		this(s,null,c);
 	}
 
+	/** 
+	* Indique si la transition est une epsilon-transition.  
+	* @return booléen Vrai si epsilon-transition
+	*/
 	public boolean isEpsilon(){
 		return symbol == null;
 	}
 
+	/** 
+	* Indique si la transition peut être applique depuis cet état sur ce symbole.  
+	* @param etat L'état courant
+	* @param symbol Le symbol courant
+	* @return booléan à vrai si la transition est applicable, faux sinon
+	*/
 	public boolean candidate(String etat, String symbol) {
 		return (etat==source) && (symbol==this.symbol) ;
 	}
 
+	/** 
+	* Applique la transition.  
+	* @return le nouvel état
+	*/
 	public String appliquer() {
 		return cible;
 	}
@@ -67,6 +81,6 @@ class Transition {
 
 class EpsilonTransition extends Transition {
 	public EpsilonTransition(String s, String c) {
-		super(s,"",c);
+		super(s,null,c);
 	}
 }
