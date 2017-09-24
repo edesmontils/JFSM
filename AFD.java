@@ -124,3 +124,32 @@ class AFD extends Automate {
 		return isFinal(current);
 	}
 }
+
+class AFD2 extends AFD {// TODO.....
+	protected Map<String,Map<String,Transition>> mu2;
+
+
+	public AFD2(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
+		super(A,Q,i,F,mu);
+
+		// nouvelle structure de données pour optimiser la recherche des transitions
+		this.mu2 = new HashMap<String,Map<String,Transition>>();
+		Iterator<Transition> j = mu.iterator();
+		while(j.hasNext()) {
+			Transition t = j.next();
+			String s = t.source+t.symbol ;
+			Map<String,Transition> m = this.mu2.get(s);
+			if (m == null) {
+				this.mu2.put(s, new HashMap<String,Transition>());
+				this.mu2.get(s).put(t.name, t);
+			} else {
+				if (m.containsKey(t.name)) {
+					System.out.println("Transition dupliquée ! Seule la première version sera conservée.");
+				} else {
+					m.put(t.name,t);
+				}				
+			}
+		}
+	}
+
+}

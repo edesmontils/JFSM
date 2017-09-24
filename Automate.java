@@ -52,7 +52,6 @@ abstract class Automate {
 	public Set<String> F, I;
 	public Set<String> A;
 	public List<String> histo;
-	//protected Map<String,Map<String,Transition>> mu2;
 	Set<Transition> mu;
 	String current;
 	Etat trash;
@@ -120,24 +119,6 @@ abstract class Automate {
 				}
 			}
 		}	
-
-		// this.mu2 = new HashMap<String,Map<String,Transition>>();
-		// Iterator<Transition> j = mu.iterator();
-		// while(j.hasNext()) {
-		// 	Transition t = j.next();
-		// 	String s = t.source+t.symbol ;
-		// 	Map<String,Transition> m = this.mu2.get(s);
-		// 	if (m == null) {
-		// 		this.mu2.put(s, new HashMap<String,Transition>());
-		// 		this.mu2.get(s).put(t.name, t);
-		// 	} else {
-		// 		if (m.containsKey(t.name)) {
-		// 			System.out.println("Transition dupliquée ! Seule la première version sera conservée.");
-		// 		} else {
-		// 			m.put(t.name,t);
-		// 		}				
-		// 	}
-		// }
 
 		// On collecte les états initiaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
 		// assert I.size()>0 : "I ne peut pas être vide" ;
