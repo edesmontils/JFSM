@@ -104,10 +104,10 @@ class AFD extends Automate {
 		Transition t = null ;
 		while(it.hasNext() && (!ok)){
 			t = it.next();
-			ok = (t.source==current) && (t.symbol == symbol);
+			ok = t.candidate(current,symbol);
 		}
 		if (ok) {
-			current = t.cible;
+			current = t.appliquer();
 			return true;
 		} else return false;
 	}

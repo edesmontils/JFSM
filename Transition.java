@@ -38,8 +38,8 @@
 
 class Transition {
 	public String name;
-	public String source, cible;
-	public String symbol;
+	protected String source, cible;
+	protected String symbol;
 
 	public Transition(String s, String symbol, String c) {
 		this.symbol = symbol;
@@ -54,6 +54,14 @@ class Transition {
 
 	public boolean isEpsilon(){
 		return symbol == null;
+	}
+
+	public boolean candidate(String etat, String symbol) {
+		return (etat==source) && (symbol==this.symbol) ;
+	}
+
+	public String appliquer() {
+		return cible;
 	}
 }
 
