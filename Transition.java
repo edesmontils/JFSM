@@ -36,7 +36,7 @@
  * @version 1.0
  */
 
-class Transition {
+public class Transition {
 	public String name;
 	protected String source, cible;
 	protected String symbol;
@@ -54,7 +54,7 @@ class Transition {
 
 	/** 
 	* Indique si la transition est une epsilon-transition.  
-	* @return booléen Vrai si epsilon-transition
+	* @return booléen Vrai si c'est une epsilon-transition
 	*/
 	public boolean isEpsilon(){
 		return symbol == null;

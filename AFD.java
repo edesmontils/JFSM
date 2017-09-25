@@ -47,7 +47,7 @@ import java.util.HashMap;
 
 import java.util.Iterator;
 
-class AFD extends Automate {
+public class AFD extends Automate {
 	private String i;
 
 	public AFD(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
@@ -124,7 +124,7 @@ class AFD extends Automate {
         	next(symbol);
 		}
 		return isFinal(current);
-	}
+	} 
 }
 
 class AFD2 extends AFD {// TODO.....

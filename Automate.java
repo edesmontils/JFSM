@@ -47,7 +47,7 @@ import java.util.HashMap;
 
 import java.util.Iterator;
 
-abstract class Automate {
+public abstract class Automate {
 	public Map<String,Etat> Q;
 	public Set<String> F, I;
 	public Set<String> A;
@@ -170,10 +170,12 @@ abstract class Automate {
 	}
 
 	public boolean isInitial(String e){
+		assert Q.containsKey(e) : "isInitial : l'état doit être un état de l'automate." ;
 		return I.contains(e);
 	}
 
 	public boolean isFinal(String e){
+		assert Q.containsKey(e) : "isFinal : l'état doit être un état de l'automate." ;
 		return F.contains(e);
 	}
 
@@ -182,6 +184,7 @@ abstract class Automate {
 	}
 
 	public boolean next(String symbol) {
+		assert A.contains(symbol) : "next() : le symbole doit être un symbole de l'alphabet." ;
 		histo.add(current);
 		return true;
 	}

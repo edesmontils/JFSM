@@ -36,7 +36,7 @@
  * @version 1.0
  */
 
-class Etat {
+public class Etat {
 	public String name;
 
 	public Etat(String n) {

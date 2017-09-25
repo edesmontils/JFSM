@@ -27,7 +27,7 @@
 
 
 /**
- * FSMException.java
+ * AFD.java
  *
  *
  * Created: 2017-08-25
@@ -36,32 +36,36 @@
  * @version 1.0
  */
 
+import java.util.Set;
+import java.util.HashSet;
 
-public class JFSMException extends Exception {
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	*/  
-	public JFSMException() {}  
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	* @param message Le message détaillant exception 
-	*/  
-	public JFSMException(String message) {  
-		super(message); 
-	}  
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	* @param cause L'exception à l'origine de cette exception 
-	*/  
-	public JFSMException(Throwable cause) {  
-		super(cause); 
-	}  
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	* @param message Le message détaillant exception 
-	* @param cause L'exception à l'origine de cette exception 
-	*/  
-	public JFSMException(String message, Throwable cause) {  
-		super(message, cause); 
+import java.util.List;
+import java.util.ArrayList;
+
+import java.util.Map;
+import java.util.HashMap;
+
+import java.util.Iterator;
+
+public abstract class Transducteur extends AFD {
+
+	public Transducteur(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
+		super(A,Q,i,F,mu);
+	}
+
+	public abstract String nextT(String symbol) ; 
+
+	public List<String> runT(List<String> l) {
+		String symbol;
+		boolean ok = false;
+		init();
+		List<String> res = new ArrayList<String>();
+		Iterator<String> il = l.iterator();
+		while(il.hasNext()){
+			symbol = il.next();
+			String r = nextT(symbol) ;
+        	if (r != null) res.add(r);
+		}
+		return res;
 	}
 }

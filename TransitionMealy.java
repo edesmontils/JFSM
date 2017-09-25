@@ -27,7 +27,7 @@
 
 
 /**
- * FSMException.java
+ * AFD.java
  *
  *
  * Created: 2017-08-25
@@ -36,32 +36,24 @@
  * @version 1.0
  */
 
+import java.util.Set;
+import java.util.HashSet;
 
-public class JFSMException extends Exception {
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	*/  
-	public JFSMException() {}  
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	* @param message Le message détaillant exception 
-	*/  
-	public JFSMException(String message) {  
-		super(message); 
-	}  
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	* @param cause L'exception à l'origine de cette exception 
-	*/  
-	public JFSMException(Throwable cause) {  
-		super(cause); 
-	}  
-	/** 
-	* Crée une nouvelle instance de JFSMException 
-	* @param message Le message détaillant exception 
-	* @param cause L'exception à l'origine de cette exception 
-	*/  
-	public JFSMException(String message, Throwable cause) {  
-		super(message, cause); 
+import java.util.List;
+import java.util.ArrayList;
+
+import java.util.Map;
+import java.util.HashMap;
+
+import java.util.Iterator;
+
+
+public class TransitionMealy extends Transition {
+	public String prod ;
+
+	public TransitionMealy(String s, String symbolIn, String symbolOut, String c) {
+		super(s,symbolIn,c);
+		prod = symbolOut ;
 	}
+
 }
