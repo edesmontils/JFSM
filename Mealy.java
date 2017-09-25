@@ -47,6 +47,16 @@ import java.util.HashMap;
 
 import java.util.Iterator;
 
+class TransitionMealy extends Transition {
+	public String prod ;
+
+	public TransitionMealy(String s, String symbolIn, String symbolOut, String c) {
+		super(s,symbolIn,c);
+		prod = symbolOut ;
+	}
+
+}
+
 public class Mealy extends Transducteur {
 
 	public Mealy(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {

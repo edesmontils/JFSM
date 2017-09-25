@@ -48,12 +48,35 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 
-public class TransitionMealy extends Transition {
-	public String prod ;
+class EtatMoore extends Etat {
+	protected String out ;
 
-	public TransitionMealy(String s, String symbolIn, String symbolOut, String c) {
-		super(s,symbolIn,c);
-		prod = symbolOut ;
+	public EtatMoore(String n, String out){
+		super(n);
+		this.out = out ;
+	}
+}
+
+public class Moore extends Transducteur {
+
+	public Moore(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
+		super(A,Q,i,F,mu);
+		Iterator<Etat> it = Q.iterator();
+		while(it.hasNext()){
+			Etat t = it.next();
+			assert t instanceof EtatMoore : "Un état n'est pas un état de Moore";
+		}
 	}
 
+	public boolean next(String symbol) {
+		boolean ok = super.next(symbol);
+		if (ok) {
+			Transition t = histo.peek();
+			if (t.cible != trash.name) {
+				TransitionMealy tm = (TransitionMealy)t;
+				res.add(tm.prod);
+			}  
+			return true;
+		} else return false;
+	}
 }
