@@ -77,6 +77,8 @@ public class Transition {
 	public String appliquer() {
 		return cible;
 	}
+
+	public String toString(){return name;}
 }
 
 class EpsilonTransition extends Transition {

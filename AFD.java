@@ -100,7 +100,7 @@ public class AFD extends Automate {
 	}
 
 	public boolean next(String symbol) {
-		super.next(symbol);
+		assert A.contains(symbol) : "next() : le symbole doit être un symbole de l'alphabet." ;
 		Iterator<Transition> it = mu.iterator();
 		boolean ok = false;
 		Transition t = null ;
@@ -110,6 +110,7 @@ public class AFD extends Automate {
 		}
 		if (ok) {
 			current = t.appliquer();
+			histo.push(t);
 			return true;
 		} else return false;
 	}

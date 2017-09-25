@@ -58,23 +58,15 @@ public class Mealy extends Transducteur {
 		}
 	}
 
-	public String nextT(String symbol) {
-		assert A.contains(symbol) : "next() : le symbole doit être un symbole de l'alphabet." ;
-		histo.add(current);
-		Iterator<Transition> it = mu.iterator();
-		boolean ok = false;
-		Transition t = null ;
-		while(it.hasNext() && (!ok)){
-			t = it.next();
-			ok = t.candidate(current,symbol);
-		}
+	public boolean next(String symbol) {
+		boolean ok = super.next(symbol);
 		if (ok) {
-			current = t.appliquer();
-			System.out.println(t.getClass()+":"+t.name);
+			Transition t = histo.peek();
 			if (t.cible != trash.name) {
 				TransitionMealy tm = (TransitionMealy)t;
-				return tm.prod;
-			} else return "";
-		} else return null;
+				res.add(tm.prod);
+			}  
+			return true;
+		} else return false;
 	}
 }

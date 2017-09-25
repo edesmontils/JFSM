@@ -47,11 +47,13 @@ import java.util.HashMap;
 
 import java.util.Iterator;
 
+import java.util.Stack;
+
 public abstract class Automate {
 	public Map<String,Etat> Q;
 	public Set<String> F, I;
 	public Set<String> A;
-	public List<String> histo;
+	public Stack<Transition> histo;
 	Set<Transition> mu;
 	String current;
 	Etat trash;
@@ -95,7 +97,7 @@ public abstract class Automate {
 		}
 
 		// Création de l'historique (chemin)
-		this.histo = new ArrayList<String>();
+		this.histo = new Stack<Transition>();
 
 		// Ajout des transitions
 		this.mu.addAll(mu);
@@ -183,11 +185,7 @@ public abstract class Automate {
 		histo.clear();
 	}
 
-	public boolean next(String symbol) {
-		assert A.contains(symbol) : "next() : le symbole doit être un symbole de l'alphabet." ;
-		histo.add(current);
-		return true;
-	}
+	public abstract boolean next(String symbol);
 
 	public boolean accepte(){return isFinal(current);}
 

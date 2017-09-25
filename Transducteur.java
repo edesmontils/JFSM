@@ -48,24 +48,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public abstract class Transducteur extends AFD {
+	List<String> res;
 
 	public Transducteur(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,i,F,mu);
 	}
 
-	public abstract String nextT(String symbol) ; 
-
-	public List<String> runT(List<String> l) {
-		String symbol;
-		boolean ok = false;
-		init();
-		List<String> res = new ArrayList<String>();
-		Iterator<String> il = l.iterator();
-		while(il.hasNext()){
-			symbol = il.next();
-			String r = nextT(symbol) ;
-        	if (r != null) res.add(r);
-		}
-		return res;
+	public void init(){
+		super.init();
+		res = new ArrayList<String>();
 	}
 }

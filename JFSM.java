@@ -91,9 +91,13 @@ public class JFSM {
 
     	List<String> l = new ArrayList<String>();
     	l.add("a");l.add("c");
-    	List<String> r = afn.runT(l);
+    	afn.run(l);
     	System.out.println(afn.accepte());
     	System.out.println(afn.histo);
-    	System.out.println(r);
+    	System.out.println(afn.res);
+
+    	afn.run(l);
+    	System.out.println(afn.accepte());
+    	System.out.println(afn.histo);
    }
 }
