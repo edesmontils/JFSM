@@ -99,5 +99,14 @@ public class JFSM {
     	afn.run(l);
     	System.out.println(afn.accepte());
     	System.out.println(afn.histo);
+
+
+		Set<Etat> Q2 = new HashSet<Etat>();
+    	Q2.add(new EtatMoore("1","0"));Q2.add(new EtatMoore("2","1"));Q2.add(new EtatMoore("3","0"));
+    	Moore afn2 = new Moore(A,Q2,"1",F,mu);
+    	afn2.run(l);
+    	System.out.println(afn2.accepte());
+    	System.out.println(afn2.histo);
+    	System.out.println(afn2.res);    	
    }
 }

@@ -71,10 +71,9 @@ public class Moore extends Transducteur {
 	public boolean next(String symbol) {
 		boolean ok = super.next(symbol);
 		if (ok) {
-			Transition t = histo.peek();
-			if (t.cible != trash.name) {
-				TransitionMealy tm = (TransitionMealy)t;
-				res.add(tm.prod);
+			if (current != trash.name) {
+				EtatMoore em = (EtatMoore)getEtat(current);
+				res.add(em.out);
 			}  
 			return true;
 		} else return false;
