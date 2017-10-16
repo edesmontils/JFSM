@@ -62,7 +62,7 @@ public abstract class Automate {
 		public Trash(){
 			super("---Trash---");
 		}
-	}
+	} 
 
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
 		// Ajout de l'alphabet
