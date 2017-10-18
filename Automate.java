@@ -92,7 +92,7 @@ public abstract class Automate {
 			if (this.Q.containsKey(e.name)) {
 				System.out.println("Etat dupliqué ! Seule une version sera conservée.");
 			} else {
-				this.Q.put(e.name,e);
+				this.Q.put(e.name,e); 
 			}
 		}
 
