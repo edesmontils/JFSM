@@ -80,16 +80,7 @@ public abstract class Automate {
 		
 		for(String s : A) {
 			this.mu.add(new Transition(trash.name,s,trash.name));
-		}
-		
-		/* Iterator<String> a = this.A.iterator();
-		Transition t;
-		String s;
-		while(a.hasNext()){
-			s = a.next();
-			t = new Transition(trash.name, s, trash.name);
-			this.mu.add(t);
-		}	*/ 	
+		}	
 
 		Iterator<Etat> q = Q.iterator();
 		while(q.hasNext()) {
@@ -113,7 +104,8 @@ public abstract class Automate {
 			Etat e = itE.next();
 			Iterator<String> itA = this.A.iterator();
 			while (itA.hasNext()) {
-				s = itA.next();
+				String s = itA.next();
+				Transition t;
 				int nb = 0;
 				Iterator<Transition> itT = this.mu.iterator();
 				while(itT.hasNext()){
