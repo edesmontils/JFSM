@@ -70,14 +70,11 @@ public class AFD extends Automate {
 		} else {
 			// un seul état initial !
 			boolean ok = true;
-			Iterator<Transition> itT = T.mu.iterator();
-			Transition t ;
-			while(itT.hasNext() && ok){
-				t = itT.next();
-				ok = !t.isEpsilon();
-			}
+			for(Transition t : T.mu) ok = ok && !t.isEpsilon();
 			if (ok) {
 				// pas d'epsilon-transition !
+				Transition t;
+				Iterator<Transition> itT; 
 				Iterator<Etat> itE = T.Q.values().iterator();
 				while (itE.hasNext() && ok){// pour chaque état e...
 					Etat e = itE.next();
@@ -116,14 +113,8 @@ public class AFD extends Automate {
 	}
 
 	public boolean run(List<String> l) {
-		String symbol;
-		boolean ok = false;
 		init();
-		Iterator<String> il = l.iterator();
-		while(il.hasNext()){
-			symbol = il.next();
-        	next(symbol);
-		}
+		for(String symbol : l) next(symbol) ;
 		return isFinal(current);
 	} 
 }

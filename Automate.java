@@ -78,63 +78,34 @@ public abstract class Automate {
 		trash = new Trash();
 		this.Q.put(trash.name,trash);
 		
-		for(String s : A) {
-			this.mu.add(new Transition(trash.name,s,trash.name));
-		}	
+		for(String s : A) this.mu.add(new Transition(trash.name,s,trash.name));
 
-		Iterator<Etat> q = Q.iterator();
-		while(q.hasNext()) {
-			Etat e = q.next();
-			if (this.Q.containsKey(e.name)) {
-				System.out.println("Etat dupliqué ! Seule une version sera conservée.");
-			} else {
-				this.Q.put(e.name,e); 
-			}
-		}
-
+		for (Etat e : Q)
+			if (this.Q.containsKey(e.name)) System.out.println("Etat dupliqué ! Seule une version sera conservée.");
+			else this.Q.put(e.name,e); 
+		
 		// Création de l'historique (chemin)
 		this.histo = new Stack<Transition>();
 
 		// Ajout des transitions
 		this.mu.addAll(mu);
 
-		// On ajoute les transitions vers l'état poubelle
-		Iterator<Etat> itE = this.Q.values().iterator();
-		while (itE.hasNext()){
-			Etat e = itE.next();
-			Iterator<String> itA = this.A.iterator();
-			while (itA.hasNext()) {
-				String s = itA.next();
-				Transition t;
+		for (Etat e : this.Q.values()) {
+			for(String s : this.A) {
 				int nb = 0;
-				Iterator<Transition> itT = this.mu.iterator();
-				while(itT.hasNext()){
-					t = itT.next();
-					if ((t.source==e.name) && (t.symbol == s)) nb += 1;
-				}
-				if (nb==0) {
-					t = new Transition(e.name, s, trash.name);
-					this.mu.add(t);
-				}
+				for(Transition t : this.mu) if ((t.source==e.name) && (t.symbol == s)) nb += 1;
+				if (nb==0) this.mu.add(new Transition(e.name, s, trash.name));
 			}
 		}	
 
 		// On collecte les états initiaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
 		// assert I.size()>0 : "I ne peut pas être vide" ;
 		this.I = new HashSet<String>();
-		Iterator<String> i = I.iterator();
-		while(i.hasNext()) {
-			String n = i.next();
-			setInitial(n);
-		}
+		for (String i : I) setInitial(i);
 
 		// On collecte les états finaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
 		this.F = new HashSet<String>();
-		Iterator<String> f = F.iterator();
-		while(f.hasNext()) {
-			String n = f.next();
-			setFinal(n);
-		}
+		for(String f : F) setFinal(f);
 	}
 
 	public void addTransition(Transition t) {
