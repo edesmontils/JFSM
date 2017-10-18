@@ -90,7 +90,7 @@ public abstract class Automate {
 		while(q.hasNext()) {
 			Etat e = q.next();
 			if (this.Q.containsKey(e.name)) {
-				System.out.println("Etat dupliqué ! Seule la première version sera conservée.");
+				System.out.println("Etat dupliqué ! Seule une version sera conservée.");
 			} else {
 				this.Q.put(e.name,e);
 			}
