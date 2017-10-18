@@ -77,14 +77,19 @@ public abstract class Automate {
 		// Création de l'état poubelle... pour faciliter l'exécution...
 		trash = new Trash();
 		this.Q.put(trash.name,trash);
-		Iterator<String> a = this.A.iterator();
+		
+		for(String s : A) {
+			this.mu.add(new Transition(trash.name,s,trash.name));
+		}
+		
+		/* Iterator<String> a = this.A.iterator();
 		Transition t;
 		String s;
 		while(a.hasNext()){
 			s = a.next();
 			t = new Transition(trash.name, s, trash.name);
 			this.mu.add(t);
-		}		
+		}	*/ 	
 
 		Iterator<Etat> q = Q.iterator();
 		while(q.hasNext()) {
