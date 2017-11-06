@@ -73,7 +73,6 @@ public class AFD extends Automate {
 			for(Transition t : T.mu) ok = ok && !t.isEpsilon();
 			if (ok) {
 				// pas d'epsilon-transition !
-				Transition t;
 				Iterator<Transition> itT; 
 				Iterator<Etat> itE = T.Q.values().iterator();
 				while (itE.hasNext() && ok){// pour chaque état e...
@@ -82,9 +81,7 @@ public class AFD extends Automate {
 					while (itA.hasNext() && ok) {// pour chaque symbole a...
 						String a = itA.next();
 						int nb = 0;
-						itT = T.mu.iterator();
-						while(itT.hasNext()){ // compter le nombre de transitions qui partent de e avec a
-							t = itT.next();
+						for(Transition t : T.mu){ // compter le nombre de transitions qui partent de e avec a
 							if ((t.source==e.name) && (t.symbol == a)) nb += 1;
 						}
 						ok = nb <2 ;
