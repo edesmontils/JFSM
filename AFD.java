@@ -48,7 +48,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class AFD extends Automate {
-	private String i;
+	private String i; // l'état initial
 
 	public AFD(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,new HashSet<String>(),F,mu);
@@ -73,21 +73,17 @@ public class AFD extends Automate {
 			for(Transition t : T.mu) ok = ok && !t.isEpsilon();
 			if (ok) {
 				// pas d'epsilon-transition !
-				Iterator<Transition> itT; 
-				Iterator<Etat> itE = T.Q.values().iterator();
-				while (itE.hasNext() && ok){// pour chaque état e...
-					Etat e = itE.next();
-					Iterator<String> itA = T.A.iterator();
-					while (itA.hasNext() && ok) {// pour chaque symbole a...
-						String a = itA.next();
-						int nb = 0;
+				int nb;
+				for(Etat e : T.Q.values()) {// pour chaque état e...
+					for (String a : T.A) {// pour chaque symbole a...
+						nb = 0;
 						for(Transition t : T.mu){ // compter le nombre de transitions qui partent de e avec a
 							if ((t.source==e.name) && (t.symbol == a)) nb += 1;
 						}
-						ok = nb <2 ;
+						ok = ok && (nb < 2) ;
 					}
-				}	
-				// Si ok : chaque état à au max 1 transition vers un autre état avec un symbol donné.
+				}
+				// Si ok : chaque état a au max 1 transition vers un autre état avec un symbol donné.
 				return ok;
 			} else return false;
 		}

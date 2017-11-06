@@ -27,7 +27,7 @@
 
 
 /**
- * AFD.java
+ * Moore.java
  *
  *
  * Created: 2017-08-25
@@ -46,7 +46,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 import java.util.Iterator;
-
 
 class EtatMoore extends Etat {
 	protected String out ;

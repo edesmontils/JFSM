@@ -27,7 +27,7 @@
 
 
 /**
- * AFD.java
+ * Transducteur.java
  *
  *
  * Created: 2017-08-25
@@ -48,7 +48,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public abstract class Transducteur extends AFD {
-	List<String> res;
+	List<String> res; // mot résultat de l'exécution du transducteur
 
 	public Transducteur(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,i,F,mu);

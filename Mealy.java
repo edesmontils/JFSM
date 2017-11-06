@@ -27,7 +27,7 @@
 
 
 /**
- * AFD.java
+ * Mealy.java
  *
  *
  * Created: 2017-08-25
@@ -54,7 +54,6 @@ class TransitionMealy extends Transition {
 		super(s,symbolIn,c);
 		prod = symbolOut ;
 	}
-
 }
 
 public class Mealy extends Transducteur {
