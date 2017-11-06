@@ -47,6 +47,7 @@ import java.util.HashMap;
 
 import java.util.Iterator;
 
+// Ici Transducteur est en fait un transducteur fini déterministe (donc un cas particulier de transducteur)
 public abstract class Transducteur extends AFD {
 	List<String> res; // mot résultat de l'exécution du transducteur
 
