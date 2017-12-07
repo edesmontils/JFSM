@@ -67,7 +67,7 @@ public class Transition {
 	* @return booléan à vrai si la transition est applicable, faux sinon
 	*/
 	public boolean candidate(String etat, String symbol) {
-		return (etat==source) && (symbol==this.symbol) ;
+		return etat.equals(source) && symbol.equals(this.symbol);
 	}
 
 	/** 
