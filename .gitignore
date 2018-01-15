@@ -1,1 +1,5 @@
 *.class
+.vscode/launch.json
+launch.json
+jfsm.jar
+SC.java

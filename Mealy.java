@@ -60,7 +60,7 @@ public class Mealy extends Transducteur {
 
 	public Mealy(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,i,F,mu);
-		for(Transition t : mu) assert t instanceof TransitionMealy : "Une transition n'est pas une TransitionMealy";
+		for(Transition t : mu) assert t instanceof TransitionMealy : "Une transition n'est pas une transition de Mealy";
 	}
 
 	public boolean next(String symbol) {
