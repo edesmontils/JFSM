@@ -113,7 +113,7 @@ public abstract class Automate {
 	}
 
 	public void addEtat(Etat e){
-		if (!Q.containsKey(e))
+		if (!Q.containsKey(e.name))
 			Q.put(e.name,e);
 	}
 
