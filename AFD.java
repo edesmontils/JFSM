@@ -106,8 +106,15 @@ public class AFD extends Automate {
 	}
 
 	public boolean run(List<String> l) {
-		init();
-		for(String symbol : l) next(symbol) ;
-		return isFinal(current);
-	} 
+        init();
+        boolean ok = true;
+        for (String symbol : l) {
+            System.out.println(symbol);
+            if (!next(symbol)) {
+                ok = false;
+                break;
+            }
+        }
+        return ok && isFinal(current);
+    }
 }
