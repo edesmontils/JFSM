@@ -93,7 +93,7 @@ public abstract class Automate {
 		for (Etat e : this.Q.values()) {
 			for(String s : this.A) {
 				int nb = 0;
-				for(Transition t : this.mu) if ((t.source==e.name) && (t.symbol == s)) nb += 1;
+				for(Transition t : this.mu) if ((t.source.equals(e.name)) && (t.symbol.equals(s))) nb += 1;
 				if (nb==0) this.mu.add(new Transition(e.name, s, trash.name));
 			}
 		}	
