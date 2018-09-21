@@ -50,63 +50,71 @@ import java.util.Iterator;
 public class JFSM {
     public static void main(String argv []) throws JFSMException {
 
-    	// Set<String> A = new HashSet<String>();      
-    	// A.add("a");A.add("b");A.add("c");
-
-    	// Set<Etat> Q = new HashSet<Etat>();
-    	// Q.add(new Etat("1"));Q.add(new Etat("2"));Q.add(new Etat("3"));
-
-    	// Set<Transition> mu = new HashSet<Transition>();
-    	// mu.add(new Transition("1","a","2"));
-    	// mu.add(new Transition("1","b","3"));
-    	// mu.add(new Transition("2","a","1"));
-    	// mu.add(new Transition("2","c","3"));
-    	// mu.add(new Transition("2","b","2"));
-    	// mu.add(new Transition("3","b","2"));
-
-    	// Set<String> F = new HashSet<String>();
-    	// F.add("3");
-    	// Automate afn = new AFD(A, Q, "1", F, mu);
-    	// afn.next("a");
-    	// afn.next("c");
-    	// System.out.println(afn.accepte());
-
     	Set<String> A = new HashSet<String>();      
     	A.add("a");A.add("b");A.add("c");
 
     	Set<Etat> Q = new HashSet<Etat>();
-    	Q.add(new Etat("1"));Q.add(new Etat("2"));Q.add(new Etat("3"));
+    	Q.add(new Etat("0"));Q.add(new Etat("1"));Q.add(new Etat("2"));
+        Q.add(new Etat("3"));Q.add(new Etat("4"));Q.add(new Etat("5"));
 
     	Set<Transition> mu = new HashSet<Transition>();
-    	mu.add(new TransitionMealy("1","a","1","2"));
-    	mu.add(new TransitionMealy("1","b","0","3"));
-    	mu.add(new TransitionMealy("2","a","0","1"));
-    	mu.add(new TransitionMealy("2","c","1","3"));
-    	mu.add(new TransitionMealy("2","b","1","2"));
-    	mu.add(new TransitionMealy("3","b","0","2"));
+        mu.add(new Transition("0","a","4"));
+    	mu.add(new Transition("1","a","2"));
+    	mu.add(new Transition("1","b","4"));
+    	mu.add(new Transition("2","b","3"));
+    	mu.add(new Transition("2","c","4"));
+    	mu.add(new Transition("3","a","5"));
+        mu.add(new Transition("3","a","4"));
+    	mu.add(new Transition("4","a","5"));
+        mu.add(new Transition("5","c","5"));
 
     	Set<String> F = new HashSet<String>();
-    	F.add("3");
-    	Mealy afn = new Mealy(A, Q, "1", F, mu);
+    	F.add("5");
+        Set<String> I = new HashSet<String>();
+        I.add("1");I.add("0");
+    	Automate afn = new AFN(A, Q, I, F, mu);
 
-    	List<String> l = new ArrayList<String>();
-    	l.add("a");l.add("c");
-    	afn.run(l);
+        List<String> l = new ArrayList<String>();
+        l.add("a");l.add("b");l.add("a");l.add("c");
+        afn.run(l);
     	System.out.println(afn.accepte());
-    	System.out.println(afn.histo);
-    	System.out.println(afn.res);
 
-    	afn.run(l);
-    	System.out.println(afn.accepte());
-    	System.out.println(afn.histo);
+  //   	Set<String> A = new HashSet<String>();      
+  //   	A.add("a");A.add("b");A.add("c");
+
+  //   	Set<Etat> Q = new HashSet<Etat>();
+  //   	Q.add(new Etat("1"));Q.add(new Etat("2"));Q.add(new Etat("3"));
+
+  //   	Set<Transition> mu = new HashSet<Transition>();
+  //   	mu.add(new TransitionMealy("1","a","1","2"));
+  //   	mu.add(new TransitionMealy("1","b","0","3"));
+  //   	mu.add(new TransitionMealy("2","a","0","1"));
+  //   	mu.add(new TransitionMealy("2","c","1","3"));
+  //   	mu.add(new TransitionMealy("2","b","1","2"));
+  //   	mu.add(new TransitionMealy("3","b","0","2"));
+
+  //   	Set<String> F = new HashSet<String>();
+  //   	F.add("3");
+  //   	Mealy afn = new Mealy(A, Q, "1", F, mu);
+
+  //   	List<String> l = new ArrayList<String>();
+  //   	l.add("a");l.add("c");
+  //   	afn.run(l);
+  //   	System.out.println(afn.accepte());
+  //   	System.out.println(afn.histo);
+  //   	System.out.println(afn.res);
+
+  //   	afn.run(l);
+  //   	System.out.println(afn.accepte());
+  //   	System.out.println(afn.histo);
 
 
-		Set<Etat> Q2 = new HashSet<Etat>();
-    	Q2.add(new EtatMoore("1","0"));Q2.add(new EtatMoore("2","1"));Q2.add(new EtatMoore("3","0"));
-    	Moore afn2 = new Moore(A,Q2,"1",F,mu);
-    	afn2.run(l);
-    	System.out.println(afn2.accepte());
-    	System.out.println(afn2.histo);
-    	System.out.println(afn2.res);    	
+		// Set<Etat> Q2 = new HashSet<Etat>();
+  //   	Q2.add(new EtatMoore("1","0"));Q2.add(new EtatMoore("2","1"));Q2.add(new EtatMoore("3","0"));
+  //   	Moore afn2 = new Moore(A,Q2,"1",F,mu);
+  //   	afn2.run(l);
+  //   	System.out.println(afn2.accepte());
+  //   	System.out.println(afn2.histo);
+  //   	System.out.println(afn2.res);    	
    }
 }

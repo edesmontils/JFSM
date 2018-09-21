@@ -85,4 +85,8 @@ class EpsilonTransition extends Transition {
 	public EpsilonTransition(String s, String c) {
 		super(s,null,c);
 	}
+
+	public boolean candidate(String etat, String symbol) {
+		return etat.equals(source) ;
+	}
 }

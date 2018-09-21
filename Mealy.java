@@ -42,6 +42,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -63,15 +66,26 @@ public class Mealy extends Transducteur {
 		for(Transition t : mu) assert t instanceof TransitionMealy : "Une transition n'est pas une transition de Mealy";
 	}
 
-	public boolean next(String symbol) {
-		boolean ok = super.next(symbol);
-		if (ok) {
-			Transition t = histo.peek();
-			if (t.cible != trash.name) {
-				TransitionMealy tm = (TransitionMealy)t;
-				res.add(tm.prod);
-			}  
-			return true;
-		} else return false;
+	public boolean run(List<String> l) {
+        init();
+        boolean ok = true;
+        for (String symbol : l) {
+            System.out.println(symbol);
+
+            Queue<Transition> lt = next(symbol);
+            if (lt.isEmpty()) {
+                ok = false;
+                break;
+            } else {
+            	Transition t = lt.poll();
+	            current = t.appliquer();
+				histo.push(t);
+				if (t.cible != trash.name) {
+					TransitionMealy tm = (TransitionMealy)t;
+					res.add(tm.prod);
+				}  
+            }
+        }
+        return ok && isFinal(current);
 	}
 }

@@ -42,6 +42,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -63,14 +66,26 @@ public class Moore extends Transducteur {
 		for(Etat e : Q) assert e instanceof EtatMoore : "Un état n'est pas un état de Moore";
 	}
 
-	public boolean next(String symbol) {
-		boolean ok = super.next(symbol);
-		if (ok) {
-			if (current != trash.name) {
-				EtatMoore em = (EtatMoore)getEtat(current);
-				res.add(em.out);
-			}  
-			return true;
-		} else return false;
+	public boolean run(List<String> l) {
+        init();
+        boolean ok = true;
+        for (String symbol : l) {
+            System.out.println(symbol);
+
+            Queue<Transition> lt = next(symbol);
+            if (lt.isEmpty()) {
+                ok = false;
+                break;
+            } else {
+            	Transition t = lt.poll();
+	            current = t.appliquer();
+				histo.push(t);
+				if (current != trash.name) {
+					EtatMoore em = (EtatMoore)getEtat(current);
+					res.add(em.out);
+				}  
+            }
+        }
+        return ok && isFinal(current);
 	}
 }

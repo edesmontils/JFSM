@@ -41,6 +41,7 @@ import java.util.HashSet;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Queue;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -60,7 +61,7 @@ public abstract class Automate {
 
 	class Trash extends Etat {
 		public Trash(){
-			super("---Trash---");
+			super("#Trash#");
 		}
 	} 
 
@@ -153,7 +154,7 @@ public abstract class Automate {
 		histo.clear();
 	}
 
-	public abstract boolean next(String symbol);
+	public abstract Queue<Transition> next(String symbol);
 
 	public boolean accepte(){return isFinal(current);}
 

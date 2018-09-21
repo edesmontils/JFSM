@@ -40,7 +40,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -89,7 +91,7 @@ public class AFD extends Automate {
 		}
 	}
 
-	public boolean next(String symbol) {
+	public Queue<Transition> next(String symbol) {
 		assert A.contains(symbol) : "next() : le symbole doit être un symbole de l'alphabet." ;
 		Iterator<Transition> it = mu.iterator();
 		boolean ok = false;
@@ -98,11 +100,11 @@ public class AFD extends Automate {
 			t = it.next();
 			ok = t.candidate(current,symbol);
 		}
+		Queue<Transition> l = new LinkedList<Transition>();
 		if (ok) {
-			current = t.appliquer();
-			histo.push(t);
-			return true;
-		} else return false;
+			l.add(t);
+		} 
+		return l;
 	}
 
 	public boolean run(List<String> l) {
@@ -110,9 +112,15 @@ public class AFD extends Automate {
         boolean ok = true;
         for (String symbol : l) {
             System.out.println(symbol);
-            if (!next(symbol)) {
+
+            Queue<Transition> lt = next(symbol);
+            if (lt.isEmpty()) {
                 ok = false;
                 break;
+            } else {
+            	Transition t = lt.poll();
+	            current = t.appliquer();
+				histo.push(t);
             }
         }
         return ok && isFinal(current);
