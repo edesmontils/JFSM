@@ -158,17 +158,32 @@ public abstract class Automate {
 
 	public Automate emonder() {
 		System.out.println("emonder() : méthode non implémentée");
-		return null;
+		return this;
 	}
 
 	public Automate standardiser() {
 		System.out.println("standardiser() : méthode non implémentée");
-		return null;
+		return this;
 	}
 
 	public Automate normaliser() {
 		System.out.println("normaliser() : méthode non implémentée");
-		return null;
+		return this;
+	}
+
+	public Automate produit(Automate a) {
+		System.out.println("produit() : méthode non implémentée");
+		return a;
+	}
+
+	public Automate etoile() {
+		System.out.println("etoile() : méthode non implémentée");
+		return this;
+	}
+
+	public Automate union(Automate a) {
+		System.out.println("union() : méthode non implémentée");
+		return a;
 	}
 
 	public abstract Queue<Transition> next(String symbol);
