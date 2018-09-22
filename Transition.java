@@ -53,14 +53,6 @@ public class Transition {
 	}
 
 	/** 
-	* Indique si la transition est une epsilon-transition.  
-	* @return booléen Vrai si c'est une epsilon-transition
-	*/
-	public boolean isEpsilon(){
-		return symbol == null;
-	}
-
-	/** 
 	* Indique si la transition peut être applique depuis cet état sur ce symbole.  
 	* @param etat L'état courant
 	* @param symbol Le symbol courant
@@ -75,7 +67,7 @@ public class Transition {
 	* @return le nouvel état
 	*/
 	public String appliquer() {
-		return cible;
+		return cible ;
 	}
 
 	public String toString(){return name;}

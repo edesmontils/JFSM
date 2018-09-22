@@ -154,9 +154,21 @@ public abstract class Automate {
 		histo.clear();
 	}
 
-	public abstract Queue<Transition> next(String symbol);
-
 	public boolean accepte(){return isFinal(current);}
+
+	public void emonder() {
+		System.out.println("emonder() : méthode non implémentée");
+	}
+
+	public void standardiser() {
+		System.out.println("standardiser() : méthode non implémentée");
+	}
+
+	public void normaliser() {
+		System.out.println("normaliser() : méthode non implémentée");
+	}
+
+	public abstract Queue<Transition> next(String symbol);
 
 	public abstract boolean run(List<String> l) ;
 }

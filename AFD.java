@@ -72,7 +72,7 @@ public class AFD extends Automate {
 		} else {
 			// un seul état initial !
 			boolean ok = true;
-			for(Transition t : T.mu) ok = ok && !t.isEpsilon();
+			for(Transition t : T.mu) ok = ok && ! (t instanceof EpsilonTransition);
 			if (ok) {
 				// pas d'epsilon-transition !
 				int nb;
