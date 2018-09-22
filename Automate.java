@@ -156,16 +156,19 @@ public abstract class Automate {
 
 	public boolean accepte(){return isFinal(current);}
 
-	public void emonder() {
+	public Automate emonder() {
 		System.out.println("emonder() : méthode non implémentée");
+		return null;
 	}
 
-	public void standardiser() {
+	public Automate standardiser() {
 		System.out.println("standardiser() : méthode non implémentée");
+		return null;
 	}
 
-	public void normaliser() {
+	public Automate normaliser() {
 		System.out.println("normaliser() : méthode non implémentée");
+		return null;
 	}
 
 	public abstract Queue<Transition> next(String symbol);

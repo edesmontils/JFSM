@@ -91,6 +91,11 @@ public class AFD extends Automate {
 		}
 	}
 
+	public AFD minimiser() {
+		System.out.println("minimiser() : méthode non implémentée");
+		return null;
+	}
+
 	public Queue<Transition> next(String symbol) {
 		assert A.contains(symbol) : "next() : le symbole doit être un symbole de l'alphabet." ;
 		Iterator<Transition> it = mu.iterator();
