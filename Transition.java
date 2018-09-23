@@ -38,8 +38,8 @@
 
 public class Transition implements Cloneable {
 	public String name;
-	protected String source, cible;
-	protected String symbol;
+	public String source, cible;
+	public String symbol;
 
 	public Transition(String s, String symbol, String c) {
 		this.symbol = symbol;
@@ -51,6 +51,7 @@ public class Transition implements Cloneable {
 	public Transition(String s, String c) {
 		this(s,null,c);
 	}
+
 
 	public Object clone() {
 		Object o = null;

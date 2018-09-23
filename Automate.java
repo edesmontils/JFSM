@@ -109,6 +109,20 @@ public abstract class Automate implements Cloneable {
 		for(String f : F) setFinal(f);
 	}
 
+	public String toString() {
+		String s = "{ {";
+		for(String q : Q.keySet() ) if (q != "#Trash#") s = s + q + " ";
+		s = s + "} { " ;
+		for(String q : I ) s = s + q + " ";
+		s = s + "} { " ;
+		for(String q : F ) s = s + q + " ";
+		s = s + "} { \n" ;
+		for(Transition t : mu ) if ( (t.source != "#Trash#") && (t.cible != "#Trash#") ) s = s + t + "\n";
+		s = s + "} }" ;
+
+		return s ;
+	}
+
 	public Object clone() {
 		Automate o = null;
 		try {
@@ -119,7 +133,7 @@ public abstract class Automate implements Cloneable {
 			o.A = (Set<String>)  ((HashSet<String>)A).clone();
 			o.histo = (Stack<Transition>) ((Stack<Transition>)histo).clone();
 			o.mu = (Set<Transition>) ((HashSet<Transition>)mu).clone();
-			o.trash = (Etat) trash.clone();
+			o.trash = new Trash();
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}
