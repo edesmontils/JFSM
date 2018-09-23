@@ -50,7 +50,7 @@ import java.util.Iterator;
 
 import java.util.Stack;
 
-public abstract class Automate {
+public abstract class Automate implements Cloneable {
 	public Map<String,Etat> Q;
 	public Set<String> F, I;
 	public Set<String> A;
@@ -107,6 +107,23 @@ public abstract class Automate {
 		// On collecte les états finaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
 		this.F = new HashSet<String>();
 		for(String f : F) setFinal(f);
+	}
+
+	public Object clone() {
+		Automate o = null;
+		try {
+			o = (Automate)super.clone();
+			o.Q = (Map<String,Etat>) ((HashMap<String,Etat>)Q).clone() ;
+			o.F = (Set<String>)  ((HashSet<String>)F).clone();
+			o.I = (Set<String>)  ((HashSet<String>)I).clone();
+			o.A = (Set<String>)  ((HashSet<String>)A).clone();
+			o.histo = (Stack<Transition>) ((Stack<Transition>)histo).clone();
+			o.mu = (Set<Transition>) ((HashSet<Transition>)mu).clone();
+			o.trash = (Etat) trash.clone();
+		} catch(CloneNotSupportedException cnse) {
+			cnse.printStackTrace(System.err);
+		}
+		return o;
 	}
 
 	public void addTransition(Transition t) {

@@ -27,7 +27,7 @@
 
 
 /**
- * Transition.java
+ * EpsilonTransition.java
  *
  *
  * Created: 2017-08-25
@@ -36,49 +36,21 @@
  * @version 1.0
  */
 
-public class Transition implements Cloneable {
-	public String name;
-	protected String source, cible;
-	protected String symbol;
-
-	public Transition(String s, String symbol, String c) {
-		this.symbol = symbol;
-		this.source = s;
-		this.cible = c;
-		this.name = s+"-"+symbol+"->"+c;
+class EpsilonTransition extends Transition {
+	public EpsilonTransition(String s, String c) {
+		super(s,null,c);
 	}
 
-	public Transition(String s, String c) {
-		this(s,null,c);
+	public boolean candidate(String etat, String symbol) {
+		return etat.equals(source) ;
 	}
-
 	public Object clone() {
 		Object o = null;
-		try {
-			o = super.clone();
-		} catch(CloneNotSupportedException cnse) {
-			cnse.printStackTrace(System.err);
-		}
+		// try {
+		o = super.clone();
+		// } catch(CloneNotSupportedException cnse) {
+		// 	cnse.printStackTrace(System.err);
+		// }
 		return o;
 	}
-
-	/** 
-	* Indique si la transition peut être applique depuis cet état sur ce symbole.  
-	* @param etat L'état courant
-	* @param symbol Le symbol courant
-	* @return booléan à vrai si la transition est applicable, faux sinon
-	*/
-	public boolean candidate(String etat, String symbol) {
-		return etat.equals(source) && symbol.equals(this.symbol);
-	}
-
-	/** 
-	* Applique la transition.  
-	* @return le nouvel état
-	*/
-	public String appliquer() {
-		return cible ;
-	}
-
-	public String toString(){return name;}
 }

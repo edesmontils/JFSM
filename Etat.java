@@ -36,11 +36,21 @@
  * @version 1.0
  */
 
-public class Etat {
+public class Etat  implements Cloneable {
 	public String name;
 
 	public Etat(String n) {
 		this.name = n;
+	}
+	
+	public Object clone() {
+		Object o = null;
+		try {
+			o = super.clone();
+		} catch(CloneNotSupportedException cnse) {
+			cnse.printStackTrace(System.err);
+		}
+		return o;
 	}
 }
 
