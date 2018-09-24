@@ -74,7 +74,7 @@ public class JFSM {
     	F.add("5");
         Set<String> I = new HashSet<String>();
         I.add("1");
-    	Automate afn = new AFD(A, Q, "1", F, mu);
+    	Automate afn = new AFN(A, Q, I, F, mu);
 
         List<String> l = new ArrayList<String>();
         l.add("a");l.add("b");l.add("a");l.add("c");
@@ -84,7 +84,7 @@ public class JFSM {
         afn.run(l);
     	System.out.println(afn.accepte());
 
-        // System.out.println(afn.emonder());
+        System.out.println(afn.emonder());
 
   //   	Set<String> A = new HashSet<String>();      
   //   	A.add("a");A.add("b");A.add("c");

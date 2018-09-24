@@ -192,14 +192,29 @@ public abstract class Automate implements Cloneable {
 		return this;
 	}
 
+	public boolean estEmonde() {
+		System.out.println("estEmonde() : méthode non implémentée");
+		return false;
+	}
+
 	public Automate standardiser() {
 		System.out.println("standardiser() : méthode non implémentée");
 		return this;
 	}
 
+	public boolean estStandard() {
+		System.out.println("estStandard() : méthode non implémentée");
+		return false;
+	}
+
 	public Automate normaliser() {
 		System.out.println("normaliser() : méthode non implémentée");
 		return this;
+	}
+
+	public boolean estNormalise() {
+		System.out.println("estNormalise() : méthode non implémentée");
+		return false;
 	}
 
 	public Automate produit(Automate a) {
