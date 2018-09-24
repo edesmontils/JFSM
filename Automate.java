@@ -110,13 +110,13 @@ public abstract class Automate implements Cloneable {
 	}
 
 	public String toString() {
-		String s = "{ {";
+		String s = "{ Q={";
 		for(String q : Q.keySet() ) if (q != "#Trash#") s = s + q + " ";
-		s = s + "} { " ;
+		s = s + "} I={ " ;
 		for(String q : I ) s = s + q + " ";
-		s = s + "} { " ;
+		s = s + "} F={ " ;
 		for(String q : F ) s = s + q + " ";
-		s = s + "} { \n" ;
+		s = s + "} mu={ \n" ;
 		for(Transition t : mu ) if ( (t.source != "#Trash#") && (t.cible != "#Trash#") ) s = s + t + "\n";
 		s = s + "} }" ;
 
