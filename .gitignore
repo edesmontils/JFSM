@@ -1,7 +1,7 @@
 *.class
 .vscode/launch.json
 launch.json
-exe/JFSM.jar
+jar/JFSM.jar
 SC.java
 src/JFSM/SC/*.java
 src/JFSM/AFN.java
