@@ -247,7 +247,11 @@ public abstract class Automate implements Cloneable {
 	*/
 	public Automate emonder() {
 		System.out.println("emonder() : méthode non implémentée");
-		return this;
+		Automate afn = (Automate) this.clone();
+
+		// A compléter
+
+		return afn;
 	}
 
 	/** 
@@ -256,7 +260,11 @@ public abstract class Automate implements Cloneable {
 	*/
 	public boolean estUtile() {
 		System.out.println("estUtile() : méthode non implémentée");
-		return false;
+		boolean ok = false;
+
+		// A compléter
+		
+		return ok;
 	}
 
 	/** 
@@ -265,7 +273,11 @@ public abstract class Automate implements Cloneable {
 	*/
 	public Automate standardiser() {
 		System.out.println("standardiser() : méthode non implémentée");
-		return this;
+		Automate afn = (Automate) this.clone();
+
+		// A compléter
+
+		return afn;
 	}
 
 	/** 
@@ -274,7 +286,11 @@ public abstract class Automate implements Cloneable {
 	*/
 	public boolean estStandard() {
 		System.out.println("estStandard() : méthode non implémentée");
-		return false;
+		boolean ok = false;
+
+		// A compléter
+		
+		return ok;
 	}
 
 	/** 
@@ -283,7 +299,11 @@ public abstract class Automate implements Cloneable {
 	*/
 	public Automate normaliser() {
 		System.out.println("normaliser() : méthode non implémentée");
-		return this;
+		Automate afn = (Automate) this.clone();
+
+		// A compléter
+
+		return afn;
 	}
 
 	/** 
@@ -292,7 +312,11 @@ public abstract class Automate implements Cloneable {
 	*/
 	public boolean estNormalise() {
 		System.out.println("estNormalise() : méthode non implémentée");
-		return false;
+		boolean ok = false;
+
+		// A compléter
+		
+		return ok;
 	}
 
 	/** 
@@ -311,7 +335,11 @@ public abstract class Automate implements Cloneable {
 	*/
 	public Automate etoile() {
 		System.out.println("etoile() : méthode non implémentée");
-		return this;
+		Automate afn = (Automate) this.clone();
+
+		// A compléter
+
+		return afn;
 	}
 
 	/** 
