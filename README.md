@@ -11,12 +11,12 @@ ou
 ```bash
 mkdir bin
 mkdir doc
-mkdir exe
+mkdir jar
 
 javac -sourcepath src -d bin *.java
 javadoc -docencoding latin1 -d doc -docfilessubdirs -sourcepath src JFSM
 cd bin
-jar cvf ../exe/JFSM.jar *
+jar cvf ../jar/JFSM.jar *
 cd ..
 
 ```
@@ -24,7 +24,7 @@ cd ..
 ## Exécuter
 
 ```bash
-java -cp .:exe/JFSM.jar monproj
+java -cp .:jar/JFSM.jar monproj
 ```
 
 ou

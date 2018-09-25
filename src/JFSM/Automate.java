@@ -214,37 +214,68 @@ public abstract class Automate implements Cloneable {
 		return F.contains(e);
 	}
 
+	/** 
+	* Initialise l'exécution de l'automate.  
+	*/
 	public void init() {
 		histo.clear();
 	}
 
+	/** 
+	* Indique si l'automate est dans un état final.  
+	* @return vrai si final, faux sinon
+	*/
 	public boolean accepte(){return isFinal(current);}
 
+	/** 
+	* Supprime les états qui ne sont pas utiles (accessible et co-accessible)  
+	* @return un automate équivalent utile (tous les états sont utiles)
+	*/
 	public Automate emonder() {
 		System.out.println("emonder() : méthode non implémentée");
 		return this;
 	}
 
+	/** 
+	* Détermine si l'automate est utile  
+	* @return booléen
+	*/
 	public boolean estUtile() {
 		System.out.println("estUtile() : méthode non implémentée");
 		return false;
 	}
 
+	/** 
+	* Permet de transformer l'automate en un automate standard  
+	* @return un automate équivalent standard
+	*/
 	public Automate standardiser() {
 		System.out.println("standardiser() : méthode non implémentée");
 		return this;
 	}
 
+	/** 
+	* Détermine si l'automate est standard  
+	* @return booléen
+	*/
 	public boolean estStandard() {
 		System.out.println("estStandard() : méthode non implémentée");
 		return false;
 	}
 
+	/** 
+	* Permet de transformer l'automate en un automate normalisé  
+	* @return un automate équivalent normalisé
+	*/
 	public Automate normaliser() {
 		System.out.println("normaliser() : méthode non implémentée");
 		return this;
 	}
 
+	/** 
+	* Détermine si l'automate est normalisé  
+	* @return booléen
+	*/
 	public boolean estNormalise() {
 		System.out.println("estNormalise() : méthode non implémentée");
 		return false;
