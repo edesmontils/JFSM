@@ -5,7 +5,5 @@ exe/JFSM.jar
 SC.java
 src/JFSM/SC/*.java
 src/JFSM/AFN.java
-doc/*
-doc/*.html
-doc/*.js
+doc
 bin/*
