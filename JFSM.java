@@ -62,8 +62,9 @@ public class JFSM {
       Q.add(new Etat("6"));Q.add(new Etat("7"));Q.add(new Etat("8"));
 
       Set<Transition> mu = new HashSet<Transition>();
-      mu.add(new Transition("0","b","3"));
-      mu.add(new Transition("1","a","2"));mu.add(new Transition("1","a","4"));
+      // mu.add(new Transition("0","b","3"));
+      mu.add(new Transition("1","a","2"));
+      // mu.add(new Transition("1","a","4"));
       mu.add(new Transition("1","b","4"));
       mu.add(new Transition("2","b","3"));
       mu.add(new Transition("2","c","4"));
@@ -73,15 +74,15 @@ public class JFSM {
       mu.add(new Transition("5","c","5"));
       mu.add(new Transition("6","c","2"));
       mu.add(new Transition("3","c","7"));
-      mu.add(new EpsilonTransition("3","5"));
+      // mu.add(new EpsilonTransition("3","5"));
 
       Set<String> F = new HashSet<String>();
       F.add("5");
       F.add("4");
-      Set<String> I = new HashSet<String>();
-      I.add("1");
-      I.add("0");
-      Automate afn = new AFN(A, Q, I, F, mu);
+      // Set<String> I = new HashSet<String>();
+      // I.add("1");
+      // I.add("0");
+      Automate afn = new AFD(A, Q, "1", F, mu);
 
       List<String> l = new ArrayList<String>();
       l.add("a");l.add("b");l.add("a");l.add("c");
