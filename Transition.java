@@ -52,7 +52,6 @@ public class Transition implements Cloneable {
 		this(s,null,c);
 	}
 
-
 	public Object clone() {
 		Object o = null;
 		try {

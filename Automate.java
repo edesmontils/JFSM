@@ -140,25 +140,47 @@ public abstract class Automate implements Cloneable {
 		return o;
 	}
 
+	/** 
+	* Ajoute une transition à mu.  
+	* @param t transition à ajouter
+	*/
 	public void addTransition(Transition t) {
 		mu.add(t);
 	}
 
+	/** 
+	* Ajoute un état à Q.  
+	* @param e L'état
+	*/
 	public void addEtat(Etat e){
 		if (!Q.containsKey(e.name))
 			Q.put(e.name,e);
 	}
 
+	/** 
+	* Retrouve un état par son nom.  
+	* @param n Le nom de l'état 
+	* @return l'état retrouvé, null sinon
+	*/
 	public Etat getEtat(String n) {
 		if (Q.containsKey(n))
 			return Q.get(n);
 		else return null;
 	}
 
+	/** 
+	* Fixe le vocabulaire de l'automate.  
+	* @param A la vocabulaire 
+	*/
 	public void setA(Set<String> A){
 		this.A = A;
 	}
 
+	/** 
+	* Indique si la transition peut être applique depuis cet état sur ce symbole.  
+	* @param e L'état courant
+	* @exception JFSMException Si l'état est absent
+	*/
 	public void setInitial(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
 			I.add(e);
