@@ -17,7 +17,7 @@ cd ..
 
 ```
 
-## ecécuter
+## Exécuter
 
 ```bash
 java -cp .:exe/JFSM.jar monproj
