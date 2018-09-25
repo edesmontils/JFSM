@@ -2,20 +2,21 @@
 
 ## Compiler+doc+jar
 
+Avec Ant (https://ant.apache.org):
 ```bash
 ant jar
 ```
 
-ou 
+ou sinon :
 
-Si nécessaire :
+- Si nécessaire :
 ```bash
 mkdir bin
 mkdir doc
 mkdir jar
 ```
 
-Puis :
+- Puis :
 ```bash
 javac -sourcepath src -d bin *.java
 javadoc -docencoding latin1 -d doc -docfilessubdirs -sourcepath src JFSM
