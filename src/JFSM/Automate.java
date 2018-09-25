@@ -59,13 +59,7 @@ public abstract class Automate implements Cloneable {
 	public Stack<Transition> histo;
 	public Set<Transition> mu;
 	protected String current;
-	Etat trash;
-
-	class Trash extends Etat {
-		public Trash(){
-			super("#Trash#");
-		}
-	} 
+	protected Etat trash;
 
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
 		// Ajout de l'alphabet
@@ -200,12 +194,21 @@ public abstract class Automate implements Cloneable {
 		} else throw new JFSMException("Etat absent:"+e);
 	}
 
-
+	/** 
+	* Détermine si un état (par son nom) est un état initial.  
+	* @param e Le nom de l'état
+	* @return vrai si initial, faux sinon
+	*/
 	public boolean isInitial(String e){
 		assert Q.containsKey(e) : "isInitial : l'état doit être un état de l'automate." ;
 		return I.contains(e);
 	}
 
+	/** 
+	* Détermine si un état (par son nom) est un état final.  
+	* @param e Le nom de l'état
+	* @return vrai si final, faux sinon
+	*/
 	public boolean isFinal(String e){
 		assert Q.containsKey(e) : "isFinal : l'état doit être un état de l'automate." ;
 		return F.contains(e);

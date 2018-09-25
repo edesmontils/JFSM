@@ -25,10 +25,11 @@
  * 
  **/
 
-package JFSM;
+package JFSM.Transducteur;
+
 
 /**
- * Transducteur.java
+ * EtatMoore.java
  *
  *
  * Created: 2017-08-25
@@ -37,27 +38,15 @@ package JFSM;
  * @version 1.0
  */
 
-import java.util.Set;
-import java.util.HashSet;
-
-import java.util.List;
-import java.util.ArrayList;
-
-import java.util.Map;
-import java.util.HashMap;
-
 import java.util.Iterator;
 
-// Ici Transducteur est en fait un transducteur fini déterministe (donc un cas particulier de transducteur)
-public abstract class Transducteur extends AFD {
-	List<String> res; // mot résultat de l'exécution du transducteur
+import JFSM.Etat;
 
-	public Transducteur(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
-		super(A,Q,i,F,mu);
-	}
+public class EtatMoore extends Etat {
+	protected String out ;
 
-	public void init(){
-		super.init();
-		res = new ArrayList<String>();
+	public EtatMoore(String n, String out){
+		super(n);
+		this.out = out ;
 	}
 }

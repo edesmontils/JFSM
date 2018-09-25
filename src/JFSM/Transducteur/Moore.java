@@ -25,11 +25,11 @@
  * 
  **/
 
-package JFSM;
+package JFSM.Transducteur;
 
 
 /**
- * Mealy.java
+ * Moore.java
  *
  *
  * Created: 2017-08-25
@@ -52,20 +52,15 @@ import java.util.HashMap;
 
 import java.util.Iterator;
 
-class TransitionMealy extends Transition {
-	public String prod ;
+import JFSM.Etat;
+import JFSM.Transition;
+import JFSM.JFSMException;
 
-	public TransitionMealy(String s, String symbolIn, String symbolOut, String c) {
-		super(s,symbolIn,c);
-		prod = symbolOut ;
-	}
-}
+public class Moore extends Transducteur {
 
-public class Mealy extends Transducteur {
-
-	public Mealy(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
+	public Moore(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,i,F,mu);
-		for(Transition t : mu) assert t instanceof TransitionMealy : "Une transition n'est pas une transition de Mealy";
+		for(Etat e : Q) assert e instanceof EtatMoore : "Un état n'est pas un état de Moore";
 	}
 
 	public boolean run(List<String> l) {
@@ -82,9 +77,9 @@ public class Mealy extends Transducteur {
             	Transition t = lt.poll();
 	            current = t.appliquer();
 				histo.push(t);
-				if (t.cible != trash.name) {
-					TransitionMealy tm = (TransitionMealy)t;
-					res.add(tm.prod);
+				if (current != trash.name) {
+					EtatMoore em = (EtatMoore)getEtat(current);
+					res.add(em.out);
 				}  
             }
         }
