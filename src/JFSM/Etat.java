@@ -25,9 +25,10 @@
  * 
  **/
 
+package JFSM ;
 
 /**
- * EpsilonTransition.java
+ * Etat.java
  *
  *
  * Created: 2017-08-25
@@ -36,21 +37,21 @@
  * @version 1.0
  */
 
-class EpsilonTransition extends Transition {
-	public EpsilonTransition(String s, String c) {
-		super(s,null,c);
-	}
+public class Etat  implements Cloneable {
+	public String name;
 
-	public boolean candidate(String etat, String symbol) {
-		return etat.equals(source) ;
+	public Etat(String n) {
+		this.name = n;
 	}
+	
 	public Object clone() {
 		Object o = null;
-		// try {
-		o = super.clone();
-		// } catch(CloneNotSupportedException cnse) {
-		// 	cnse.printStackTrace(System.err);
-		// }
+		try {
+			o = super.clone();
+		} catch(CloneNotSupportedException cnse) {
+			cnse.printStackTrace(System.err);
+		}
 		return o;
 	}
 }
+

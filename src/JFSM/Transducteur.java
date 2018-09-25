@@ -25,9 +25,10 @@
  * 
  **/
 
+package JFSM;
 
 /**
- * Etat.java
+ * Transducteur.java
  *
  *
  * Created: 2017-08-25
@@ -36,21 +37,27 @@
  * @version 1.0
  */
 
-public class Etat  implements Cloneable {
-	public String name;
+import java.util.Set;
+import java.util.HashSet;
 
-	public Etat(String n) {
-		this.name = n;
+import java.util.List;
+import java.util.ArrayList;
+
+import java.util.Map;
+import java.util.HashMap;
+
+import java.util.Iterator;
+
+// Ici Transducteur est en fait un transducteur fini déterministe (donc un cas particulier de transducteur)
+public abstract class Transducteur extends AFD {
+	List<String> res; // mot résultat de l'exécution du transducteur
+
+	public Transducteur(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
+		super(A,Q,i,F,mu);
 	}
-	
-	public Object clone() {
-		Object o = null;
-		try {
-			o = super.clone();
-		} catch(CloneNotSupportedException cnse) {
-			cnse.printStackTrace(System.err);
-		}
-		return o;
+
+	public void init(){
+		super.init();
+		res = new ArrayList<String>();
 	}
 }
-

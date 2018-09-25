@@ -36,6 +36,8 @@
  * @version 1.0
  */
 
+package JFSM;
+
 import java.util.Set;
 import java.util.HashSet;
 
@@ -55,8 +57,8 @@ public abstract class Automate implements Cloneable {
 	public Set<String> F, I;
 	public Set<String> A;
 	public Stack<Transition> histo;
-	Set<Transition> mu;
-	String current;
+	public Set<Transition> mu;
+	protected String current;
 	Etat trash;
 
 	class Trash extends Etat {

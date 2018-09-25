@@ -25,6 +25,7 @@
  * 
  **/
 
+package JFSM;
 
 /**
  * Transition.java
@@ -62,11 +63,13 @@ public class Transition implements Cloneable {
 		return o;
 	}
 
+	public String toString(){return name;}
+
 	/** 
 	* Indique si la transition peut être applique depuis cet état sur ce symbole.  
 	* @param etat L'état courant
 	* @param symbol Le symbol courant
-	* @return booléan à vrai si la transition est applicable, faux sinon
+	* @return booléen à vrai si la transition est applicable, faux sinon
 	*/
 	public boolean candidate(String etat, String symbol) {
 		return etat.equals(source) && symbol.equals(this.symbol);
@@ -80,5 +83,4 @@ public class Transition implements Cloneable {
 		return cible ;
 	}
 
-	public String toString(){return name;}
 }

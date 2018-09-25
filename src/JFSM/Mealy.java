@@ -25,6 +25,8 @@
  * 
  **/
 
+package JFSM;
+
 
 /**
  * Mealy.java

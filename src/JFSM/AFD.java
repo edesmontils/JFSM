@@ -35,6 +35,7 @@
  * @author Emmanuel Desmontils
  * @version 1.0
  */
+package JFSM;
 
 import java.util.Set;
 import java.util.HashSet;

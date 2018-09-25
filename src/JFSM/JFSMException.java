@@ -25,6 +25,7 @@
  * 
  **/
 
+package JFSM;
 
 /**
  * FSMException.java

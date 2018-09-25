@@ -1,9 +1,38 @@
 # FSM
 
+## Compiler+doc+jar
 
-Exemple :
+```bash
+ant jar
+```
 
-      Set<String> A = new HashSet<String>();      
+ou 
+
+```bash
+javac -sourcepath src -d bin *.java
+javadoc -docencoding latin1 -d doc -docfilessubdirs -sourcepath src JFSM
+cd bin
+jar cvf ../exe/JFSM.jar *
+cd ..
+
+```
+
+## ecécuter
+
+```bash
+java -cp .:exe/JFSM.jar monproj
+```
+
+ou
+
+```bash
+java -cp .:bin monproj
+```
+
+## Exemple :
+
+```java
+        Set<String> A = new HashSet<String>();      
     	A.add("a");A.add("b");A.add("c");
 
     	Set<Etat> Q = new HashSet<Etat>();
@@ -29,3 +58,5 @@ Exemple :
     	afn.run(l);
     	System.out.println(afn.accepte());
     	System.out.println(afn.histo);
+```
+

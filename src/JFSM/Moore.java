@@ -25,9 +25,11 @@
  * 
  **/
 
+package JFSM;
+
 
 /**
- * Transducteur.java
+ * Moore.java
  *
  *
  * Created: 2017-08-25
@@ -42,21 +44,50 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import java.util.Map;
 import java.util.HashMap;
 
 import java.util.Iterator;
 
-// Ici Transducteur est en fait un transducteur fini déterministe (donc un cas particulier de transducteur)
-public abstract class Transducteur extends AFD {
-	List<String> res; // mot résultat de l'exécution du transducteur
+class EtatMoore extends Etat {
+	protected String out ;
 
-	public Transducteur(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
+	public EtatMoore(String n, String out){
+		super(n);
+		this.out = out ;
+	}
+}
+
+public class Moore extends Transducteur {
+
+	public Moore(Set<String> A, Set<Etat> Q, String i, Set<String> F, Set<Transition> mu) throws JFSMException {
 		super(A,Q,i,F,mu);
+		for(Etat e : Q) assert e instanceof EtatMoore : "Un état n'est pas un état de Moore";
 	}
 
-	public void init(){
-		super.init();
-		res = new ArrayList<String>();
+	public boolean run(List<String> l) {
+        init();
+        boolean ok = true;
+        for (String symbol : l) {
+            System.out.println(symbol);
+
+            Queue<Transition> lt = next(symbol);
+            if (lt.isEmpty()) {
+                ok = false;
+                break;
+            } else {
+            	Transition t = lt.poll();
+	            current = t.appliquer();
+				histo.push(t);
+				if (current != trash.name) {
+					EtatMoore em = (EtatMoore)getEtat(current);
+					res.add(em.out);
+				}  
+            }
+        }
+        return ok && isFinal(current);
 	}
 }
