@@ -192,8 +192,8 @@ public abstract class Automate implements Cloneable {
 		return this;
 	}
 
-	public boolean estEmonde() {
-		System.out.println("estEmonde() : méthode non implémentée");
+	public boolean estUtile() {
+		System.out.println("estUtile() : méthode non implémentée");
 		return false;
 	}
 
