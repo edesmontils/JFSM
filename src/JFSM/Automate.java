@@ -59,7 +59,7 @@ public abstract class Automate implements Cloneable {
 	public Stack<Transition> histo;
 	public Set<Transition> mu;
 	protected String current;
-	protected Etat trash;
+	// protected Etat trash;
 
 	/** 
 	* Constructeur de l'automate {A,Q,I,F,mu}
@@ -73,18 +73,13 @@ public abstract class Automate implements Cloneable {
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
 		// Ajout de l'alphabet
 		assert A.size()>0 : "A ne peut pas être vide" ;
+		for(String a : A) assert a != "" : "Il ne peut pas y avoir de symbole vide" ;
 		this.A = A;
 		this.mu = new HashSet<Transition>();
 
 		// Ajout des états
 		assert Q.size()>0 : "Q ne peut pas être vide" ;
 		this.Q = new HashMap<String,Etat>();
-
-		// Création de l'état poubelle... pour faciliter l'exécution...
-		trash = new Trash();
-		this.Q.put(trash.name,trash);
-		
-		for(String s : A) this.mu.add(new Transition(trash.name,s,trash.name));
 
 		for (Etat e : Q)
 			if (this.Q.containsKey(e.name)) System.out.println("Etat dupliqué ! Seule une version sera conservée.");
@@ -95,14 +90,6 @@ public abstract class Automate implements Cloneable {
 
 		// Ajout des transitions
 		this.mu.addAll(mu);
-
-		for (Etat e : this.Q.values()) {
-			for(String s : this.A) {
-				int nb = 0;
-				for(Transition t : this.mu) if ((t.source.equals(e.name)) && (t.symbol.equals(s))) nb += 1;
-				if (nb==0) this.mu.add(new Transition(e.name, s, trash.name));
-			}
-		}	
 
 		// On collecte les états initiaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
 		// assert I.size()>0 : "I ne peut pas être vide" ;
@@ -121,9 +108,9 @@ public abstract class Automate implements Cloneable {
 		for(String q : I ) s = s + q + " ";
 		s = s + "} F={ " ;
 		for(String q : F ) s = s + q + " ";
-		s = s + "} mu={ \n" ;
-		for(Transition t : mu ) if ( (t.source != "#Trash#") && (t.cible != "#Trash#") ) s = s + t + "\n";
-		s = s + "} }" ;
+		s = s + "} \n   mu={ \n" ;
+		for(Transition t : mu ) if ( (t.source != "#Trash#") && (t.cible != "#Trash#") ) s = s + "\t"+ t + "\n";
+		s = s + "   }\n}" ;
 
 		return s ;
 	}
@@ -138,7 +125,6 @@ public abstract class Automate implements Cloneable {
 			o.A = (Set<String>)  ((HashSet<String>)A).clone();
 			o.histo = (Stack<Transition>) ((Stack<Transition>)histo).clone();
 			o.mu = (Set<Transition>) ((HashSet<Transition>)mu).clone();
-			o.trash = new Trash();
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}

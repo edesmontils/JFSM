@@ -77,10 +77,8 @@ public class Moore extends Transducteur {
             	Transition t = lt.poll();
 	            current = t.appliquer();
 				histo.push(t);
-				if (current != trash.name) {
-					EtatMoore em = (EtatMoore)getEtat(current);
-					res.add(em.out);
-				}  
+				EtatMoore em = (EtatMoore)getEtat(current);
+				res.add(em.out);
             }
         }
         return ok && isFinal(current);

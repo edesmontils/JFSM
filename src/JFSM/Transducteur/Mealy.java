@@ -77,10 +77,8 @@ public class Mealy extends Transducteur {
             	Transition t = lt.poll();
 	            current = t.appliquer();
 				histo.push(t);
-				if (t.cible != trash.name) {
-					TransitionMealy tm = (TransitionMealy)t;
-					res.add(tm.prod);
-				}  
+				TransitionMealy tm = (TransitionMealy)t;
+				res.add(tm.prod);
             }
         }
         return ok && isFinal(current);

@@ -48,6 +48,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import JFSM.*;
+import JFSM.Transducteur.*;
 
 public class JFSM {
     public static void main(String argv []) throws JFSMException {
@@ -61,6 +62,7 @@ public class JFSM {
       Q.add(new Etat("6"));Q.add(new Etat("7"));Q.add(new Etat("8"));
 
       Set<Transition> mu = new HashSet<Transition>();
+      // mu.add(new Transition("0","b","3"));
       mu.add(new Transition("1","a","2"));
       mu.add(new Transition("1","b","4"));
       mu.add(new Transition("2","b","3"));
@@ -74,9 +76,11 @@ public class JFSM {
 
       Set<String> F = new HashSet<String>();
       F.add("5");
+      F.add("4");
       Set<String> I = new HashSet<String>();
-      I.add("1");
-      Automate afn = new AFN(A, Q, I, F, mu);
+      // I.add("1");
+      // I.add("0");
+      Automate afn = new AFD(A, Q, "1", F, mu);
 
       List<String> l = new ArrayList<String>();
       l.add("a");l.add("b");l.add("a");l.add("c");
@@ -87,6 +91,8 @@ public class JFSM {
       System.out.println(afn.accepte());
 
       System.out.println(afn.emonder());
+
+      System.out.println("Standard ? "+afn.estStandard());
 
   //   	Set<String> A = new HashSet<String>();      
   //   	A.add("a");A.add("b");A.add("c");
