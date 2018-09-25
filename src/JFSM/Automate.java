@@ -179,8 +179,8 @@ public abstract class Automate implements Cloneable {
 	}
 
 	/** 
-	* Indique si la transition peut être applique depuis cet état sur ce symbole.  
-	* @param e L'état courant
+	* Indique qu'un état (par son nom) est un état initial.  
+	* @param e Le nom de l'état
 	* @exception JFSMException Si l'état est absent
 	*/
 	public void setInitial(String e) throws JFSMException {	
@@ -189,11 +189,17 @@ public abstract class Automate implements Cloneable {
 		} else throw new JFSMException("Etat absent:"+e);
 	}
 
+	/** 
+	* Indique qu'un état (par son nom) est un état final.  
+	* @param e Le nom de l'état
+	* @exception JFSMException Si l'état est absent
+	*/
 	public void setFinal(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
 			F.add(e);
 		} else throw new JFSMException("Etat absent:"+e);
 	}
+
 
 	public boolean isInitial(String e){
 		assert Q.containsKey(e) : "isInitial : l'état doit être un état de l'automate." ;

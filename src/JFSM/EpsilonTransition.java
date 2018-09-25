@@ -39,6 +39,7 @@ package JFSM;
  */
 
 class EpsilonTransition extends Transition {
+	
 	public EpsilonTransition(String s, String c) {
 		super(s,null,c);
 	}
@@ -46,6 +47,7 @@ class EpsilonTransition extends Transition {
 	public boolean candidate(String etat, String symbol) {
 		return etat.equals(source) ;
 	}
+
 	public Object clone() {
 		Object o = null;
 		// try {

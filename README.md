@@ -9,6 +9,10 @@ ant jar
 ou 
 
 ```bash
+mkdir bin
+mkdir doc
+mkdir exe
+
 javac -sourcepath src -d bin *.java
 javadoc -docencoding latin1 -d doc -docfilessubdirs -sourcepath src JFSM
 cd bin
