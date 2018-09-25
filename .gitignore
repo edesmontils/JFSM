@@ -6,4 +6,4 @@ SC.java
 src/JFSM/SC/*.java
 src/JFSM/AFN.java
 doc
-bin/*
+bin
