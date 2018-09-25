@@ -61,6 +61,15 @@ public abstract class Automate implements Cloneable {
 	protected String current;
 	protected Etat trash;
 
+	/** 
+	* Constructeur de l'automate {A,Q,I,F,mu}
+	* @param A l'alphabet de l'automate
+	* @param Q l'ensemble des états de l'automate
+	* @param I l'ensemble des états initiaux de l'automate
+	* @param F l'ensemble des états finaux de l'automate
+	* @param mu la fonction de transition de l'automate
+	* @exception JFSMException Exception si un état qui n'existe pas est ajouté comme état initial ou final
+	*/
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
 		// Ajout de l'alphabet
 		assert A.size()>0 : "A ne peut pas être vide" ;
@@ -281,22 +290,46 @@ public abstract class Automate implements Cloneable {
 		return false;
 	}
 
+	/** 
+	* Construit un automate reconnaissant le produit du langage de l'automate avec celui de "a" : L(this)xL(a)
+	* @param a un Automate
+	* @return un automate reconnaissant le produit
+	*/
 	public Automate produit(Automate a) {
 		System.out.println("produit() : méthode non implémentée");
 		return a;
 	}
 
+	/** 
+	* Construit un automate reconnaissant le langage de l'automate à l'étoile : L(this)*
+	* @return un automate reconnaissant la mise à l'étoile
+	*/
 	public Automate etoile() {
 		System.out.println("etoile() : méthode non implémentée");
 		return this;
 	}
 
+	/** 
+	* Construit un automate reconnaissant l'union du langage de l'automate avec celui de "a" : L(this) U L(a)
+	* @param a un Automate
+	* @return un automate reconnaissant le produit
+	*/
 	public Automate union(Automate a) {
 		System.out.println("union() : méthode non implémentée");
 		return a;
 	}
 
+	/** 
+	* Détermine des transitions possibles que peut emprunter l'automate en fonction de l'état courant et du symbole courant
+	* @param symbol le symbole
+	* @return la liste des transitions possibles 
+	*/
 	public abstract Queue<Transition> next(String symbol);
 
+	/** 
+	* Exécute l'automate sur un mot (une liste de symboles)
+	* @param l la liste de symboles
+	* @return un booléen indiquant sur le mot est reconnu 
+	*/
 	public abstract boolean run(List<String> l) ;
 }

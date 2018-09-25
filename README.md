@@ -8,17 +8,20 @@ ant jar
 
 ou 
 
+Si nécessaire :
 ```bash
 mkdir bin
 mkdir doc
 mkdir jar
+```
 
+Puis :
+```bash
 javac -sourcepath src -d bin *.java
 javadoc -docencoding latin1 -d doc -docfilessubdirs -sourcepath src JFSM
 cd bin
 jar cvf ../jar/JFSM.jar *
 cd ..
-
 ```
 
 ## Exécuter

@@ -67,6 +67,11 @@ public class AFD extends Automate {
 		current = i;
 	}
 
+	/** 
+	* Détermine si un automate est déterministe)
+	* @param T L'automate à tester
+	* @return un booléen indiquant sur l'automate est déterministe 
+	*/
 	static public boolean testDeterminisme(Automate T) {
 		if (T.I.size() !=1) {
 			return false;
@@ -92,9 +97,13 @@ public class AFD extends Automate {
 		}
 	}
 
+	/** 
+	* Permet de transformer l'automate en un automate déterministe minimal  
+	* @return un automate équivalent minimal
+	*/
 	public AFD minimiser() {
 		System.out.println("minimiser() : méthode non implémentée");
-		return null;
+		return this;
 	}
 
 	public Queue<Transition> next(String symbol) {
