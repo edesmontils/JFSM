@@ -63,7 +63,7 @@ public abstract class Automate implements Cloneable {
 
 	/** 
 	* Constructeur de l'automate {A,Q,I,F,mu}
-	* @param A l'alphabet de l'automate
+	* @param A l'alphabet de l'automate (toute chaîne de caratères non vide et différente de \u03b5)
 	* @param Q l'ensemble des états de l'automate
 	* @param I l'ensemble des états initiaux de l'automate
 	* @param F l'ensemble des états finaux de l'automate
@@ -73,7 +73,9 @@ public abstract class Automate implements Cloneable {
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
 		// Ajout de l'alphabet
 		assert A.size()>0 : "A ne peut pas être vide" ;
-		for(String a : A) assert a != "" : "Il ne peut pas y avoir de symbole vide" ;
+		for(String a : A) {
+			if ((a=="")||(a=="\u03b5")) throw new JFSMException("Un symbole ne peut pas être vide ou \u03b5");
+		}
 		this.A = A;
 		this.mu = new HashSet<Transition>();
 
@@ -102,14 +104,16 @@ public abstract class Automate implements Cloneable {
 	}
 
 	public String toString() {
-		String s = "{ Q={";
-		for(String q : Q.keySet() ) if (q != "#Trash#") s = s + q + " ";
+		String s = "{ A={ ";
+		for(String a : A ) s = s + a + " ";
+		s = s + "} Q={ ";
+		for(String q : Q.keySet() ) s = s + q + " ";
 		s = s + "} I={ " ;
 		for(String q : I ) s = s + q + " ";
 		s = s + "} F={ " ;
 		for(String q : F ) s = s + q + " ";
 		s = s + "} \n   mu={ \n" ;
-		for(Transition t : mu ) if ( (t.source != "#Trash#") && (t.cible != "#Trash#") ) s = s + "\t"+ t + "\n";
+		for(Transition t : mu ) s = s + "\t"+ t + "\n";
 		s = s + "   }\n}" ;
 
 		return s ;
@@ -221,6 +225,21 @@ public abstract class Automate implements Cloneable {
 	* @return vrai si final, faux sinon
 	*/
 	public boolean accepte(){return isFinal(current);}
+
+	/** 
+	* Indique si l'automate est epsilon-libre.  
+	* @return vrai si e-libre, faux sinon
+	*/
+	public boolean epsilonLibre(){
+		boolean ok = true ;
+		for(Transition t : mu) {
+			if (t instanceof EpsilonTransition) {
+				ok = false;
+				break;
+			}
+		}
+		return ok;
+	}
 
 	/** 
 	* Supprime les états qui ne sont pas utiles (accessible et co-accessible)  

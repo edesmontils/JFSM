@@ -39,11 +39,12 @@ package JFSM.Transducteur;
  */
 
 import JFSM.Transition ;
+import JFSM.JFSMException ;
 
 public class TransitionMealy extends Transition {
 	public String prod ;
 
-	public TransitionMealy(String s, String symbolIn, String symbolOut, String c) {
+	public TransitionMealy(String s, String symbolIn, String symbolOut, String c) throws JFSMException {
 		super(s,symbolIn,c);
 		prod = symbolOut ;
 	}

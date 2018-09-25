@@ -28,13 +28,13 @@ cd ..
 ## Exécuter
 
 ```bash
-java -cp .:jar/JFSM.jar monproj
+java -cp .:jar/JFSM.jar -ea monproj
 ```
 
 ou
 
 ```bash
-java -cp .:bin monproj
+java -cp .:bin -ea monproj
 ```
 
 ## Exemple :

@@ -27,7 +27,6 @@
 
 package JFSM;
 
-
 /**
  * EpsilonTransition.java
  *
@@ -38,10 +37,12 @@ package JFSM;
  * @version 1.0
  */
 
-class EpsilonTransition extends Transition {
+public class EpsilonTransition extends Transition {
 	
-	public EpsilonTransition(String s, String c) {
-		super(s,null,c);
+	public EpsilonTransition(String s, String c) throws JFSMException {
+		super(s,"###",c);
+		this.symbol = "\u03b5";
+		this.name = s+"-\u03b5->"+c;
 	}
 
 	public boolean candidate(String etat, String symbol) {

@@ -126,7 +126,7 @@ public class AFD extends Automate {
         init();
         boolean ok = true;
         for (String symbol : l) {
-            System.out.println(symbol);
+            // System.out.println(symbol);
 
             Queue<Transition> lt = next(symbol);
             if (lt.isEmpty()) {

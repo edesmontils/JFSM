@@ -42,15 +42,14 @@ public class Transition implements Cloneable {
 	public String source, cible;
 	public String symbol;
 
-	public Transition(String s, String symbol, String c) {
-		this.symbol = symbol;
+	public Transition(String s, String symbol, String c) throws JFSMException {
+		if (symbol==null) throw new JFSMException("Un symbole ne peut pas être absent");
+		if ((symbol.equals(""))||(symbol.equals("\u03b5"))) 
+			throw new JFSMException("Un symbole ne peut pas être vide ou \u03b5");
 		this.source = s;
 		this.cible = c;
+		this.symbol = symbol;
 		this.name = s+"-"+symbol+"->"+c;
-	}
-
-	public Transition(String s, String c) {
-		this(s,null,c);
 	}
 
 	public Object clone() {
@@ -66,7 +65,7 @@ public class Transition implements Cloneable {
 	public String toString(){return name;}
 
 	/** 
-	* Indique si la transition peut être applique depuis cet état sur ce symbole.  
+	* Indique si la transition peut être appliquée depuis cet état sur ce symbole.  
 	* @param etat L'état courant
 	* @param symbol Le symbol courant
 	* @return booléen à vrai si la transition est applicable, faux sinon
