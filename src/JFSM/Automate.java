@@ -183,6 +183,15 @@ public abstract class Automate implements Cloneable {
 	}
 
 	/** 
+	* Indique qu'un état est un état initial.  
+	* @param e L'état
+	* @exception JFSMException Si l'état est absent
+	*/
+	public void setInitial(Etat e) throws JFSMException {	
+		setInitial(e.name);
+	}
+
+	/** 
 	* Indique qu'un état (par son nom) est un état final.  
 	* @param e Le nom de l'état
 	* @exception JFSMException Si l'état est absent
@@ -191,6 +200,15 @@ public abstract class Automate implements Cloneable {
 		if (Q.containsKey(e)) {
 			F.add(e);
 		} else throw new JFSMException("Etat absent:"+e);
+	}
+
+	/** 
+	* Indique qu'un état est un état final.  
+	* @param e L'état
+	* @exception JFSMException Si l'état est absent
+	*/
+	public void setFinal(Etat e) throws JFSMException {	
+		setFinal(e.name);
 	}
 
 	/** 
@@ -204,6 +222,15 @@ public abstract class Automate implements Cloneable {
 	}
 
 	/** 
+	* Détermine si un état est un état initial.  
+	* @param e L'état
+	* @return vrai si initial, faux sinon
+	*/
+	public boolean isInitial(Etat e){
+		return isInitial(e.name);
+	}
+
+	/** 
 	* Détermine si un état (par son nom) est un état final.  
 	* @param e Le nom de l'état
 	* @return vrai si final, faux sinon
@@ -211,6 +238,15 @@ public abstract class Automate implements Cloneable {
 	public boolean isFinal(String e){
 		assert Q.containsKey(e) : "isFinal : l'état doit être un état de l'automate." ;
 		return F.contains(e);
+	}
+
+	/** 
+	* Détermine si un état est un état final.  
+	* @param e L'état
+	* @return vrai si final, faux sinon
+	*/
+	public boolean isFinal(Etat e){
+		return isFinal(e.name);
 	}
 
 	/** 
@@ -263,7 +299,7 @@ public abstract class Automate implements Cloneable {
 		boolean ok = false;
 
 		// A compléter
-		
+
 		return ok;
 	}
 
