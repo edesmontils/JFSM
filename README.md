@@ -68,3 +68,4 @@ java -cp .:bin -ea monproj
     	System.out.println(afn.histo);
 ```
 
+Il est possible de charger un automate au format JFLAP4 (http://www.jflap.org).
