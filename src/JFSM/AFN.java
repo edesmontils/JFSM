@@ -64,7 +64,7 @@ public class AFN extends Automate {
 	* Permet de transformer l'automate en un automate déterministe  
 	* @return un automate déterministe équivalent
 	*/
-	public AFD determiniser() { // TP 1718
+	public AFD determiniser() { 
 		System.out.println("determiniser() : méthode non implémentée");
 		return null;
 	}
