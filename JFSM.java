@@ -25,7 +25,6 @@
  * 
  **/
 
-
 /**
  * JFSM.java
  *
@@ -64,7 +63,7 @@ public class JFSM {
       Set<Transition> mu = new HashSet<Transition>();
       mu.add(new Transition("0","b","3"));
       mu.add(new Transition("1","a","2"));
-      mu.add(new Transition("1","a","4"));
+      // mu.add(new Transition("1","a","4"));
       mu.add(new Transition("1","b","4"));
       mu.add(new Transition("2","b","3"));
       mu.add(new Transition("2","c","4"));
@@ -79,7 +78,7 @@ public class JFSM {
       F.add("5");
       F.add("4");
       F.add("1");
-      Automate afn = new AFN(A, Q, "1", F, mu);
+      Automate afn = new AFD(A, Q, "1", F, mu);
 
       List<String> l = new ArrayList<String>();
       l.add("a");l.add("b");l.add("a");l.add("c");
@@ -92,5 +91,7 @@ public class JFSM {
       Automate a = afn.standardiser();
       System.out.println(a);
       System.out.println("Epsilon Libre ? "+afn.epsilonLibre());
+
+      afn.save("test.jff");
    }
 }

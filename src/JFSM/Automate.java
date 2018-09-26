@@ -59,6 +59,10 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.File;
+
 public class Automate implements Cloneable {
 	public Map<String,Etat> Q;
 	public Set<String> F, I;
@@ -412,6 +416,40 @@ public class Automate implements Cloneable {
 	*/
 	public boolean run(List<String> l) throws JFSMException  {
 		throw new JFSMException("Méthode run non implémentée");
+	}
+
+	/** 
+	* Enregistre un automate sous le format XML "JFLAP 4".
+	* @param file le nom du fichier
+	*/
+	public void save(String file) {
+		try{
+			File ff=new File(file); 
+			ff.createNewFile();
+			FileWriter ffw=new FileWriter(ff);
+			ffw.write("<?xml version='1.0' encoding='UTF-8' standalone='no'?><!--Created with JFSM.--><structure>\n");  
+			ffw.write("\t<type>fa</type>\n"); 
+			ffw.write("\t<automaton>\n");
+			for(Etat e : Q.values()) {
+				ffw.write("\t\t<state id='"+e.no+"' name='"+e.name+"'>\n\t\t\t<x>0</x>\n\t\t\t<y>0</y>\n");
+				if (isInitial(e.name)) ffw.write("\t\t\t<initial/>\n");
+				if (isFinal(e.name)) ffw.write("\t\t\t<final/>\n");
+				ffw.write("\t\t</state>\n");
+			}
+			for(Transition t : mu){
+				ffw.write("\t\t<transition>\n");
+				Etat from = getEtat(t.source);
+				ffw.write("\t\t\t<from>"+from.no+"</from>\n");
+				Etat to = getEtat(t.cible);
+				ffw.write("\t\t\t<to>"+to.no+"</to>\n");
+				if (!(t instanceof EpsilonTransition)) ffw.write("\t\t\t<read>"+t.symbol+"</read>\n");
+				else ffw.write("\t\t\t<read/>\n");
+				ffw.write("\t\t</transition>\n");
+			}
+			ffw.write("\t</automaton>\n");
+			ffw.write("</structure>\n"); 
+			ffw.close(); 
+		} catch (Exception e) {}
 	}
 
 	/** 

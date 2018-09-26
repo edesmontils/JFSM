@@ -38,16 +38,23 @@ package JFSM ;
  */
 
 public class Etat  implements Cloneable {
+	static public int nb = 0;
+
+	public int no;
 	public String name;
 
 	public Etat(String n) {
 		this.name = n;
+		Etat.nb++;
+		this.no = Etat.nb;
 	}
 	
 	public Object clone() {
 		Etat o = null;
 		try {
 			o = (Etat)super.clone();
+			Etat.nb++;
+			o.no = Etat.nb;
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}
