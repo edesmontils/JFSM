@@ -45,9 +45,9 @@ public class Etat  implements Cloneable {
 	}
 	
 	public Object clone() {
-		Object o = null;
+		Etat o = null;
 		try {
-			o = super.clone();
+			o = (Etat)super.clone();
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}

@@ -103,22 +103,6 @@ public abstract class Automate implements Cloneable {
 		for(String f : F) setFinal(f);
 	}
 
-	public String toString() {
-		String s = "{ A={ ";
-		for(String a : A ) s = s + a + " ";
-		s = s + "} Q={ ";
-		for(String q : Q.keySet() ) s = s + q + " ";
-		s = s + "} I={ " ;
-		for(String q : I ) s = s + q + " ";
-		s = s + "} F={ " ;
-		for(String q : F ) s = s + q + " ";
-		s = s + "} \n   mu={ \n" ;
-		for(Transition t : mu ) s = s + "\t"+ t + "\n";
-		s = s + "   }\n}" ;
-
-		return s ;
-	}
-
 	public Object clone() {
 		Automate o = null;
 		try {
@@ -133,6 +117,22 @@ public abstract class Automate implements Cloneable {
 			cnse.printStackTrace(System.err);
 		}
 		return o;
+	}
+
+	public String toString() {
+		String s = "{ A={ ";
+		for(String a : A ) s = s + a + " ";
+		s = s + "} Q={ ";
+		for(String q : Q.keySet() ) s = s + q + " ";
+		s = s + "} I={ " ;
+		for(String q : I ) s = s + q + " ";
+		s = s + "} F={ " ;
+		for(String q : F ) s = s + q + " ";
+		s = s + "} \n   mu={ \n" ;
+		for(Transition t : mu ) s = s + "\t"+ t + "\n";
+		s = s + "   }\n}" ;
+
+		return s ;
 	}
 
 	/** 

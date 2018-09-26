@@ -42,8 +42,11 @@ public class EpsilonTransition extends Transition {
 	public EpsilonTransition(String s, String c) throws JFSMException {
 		super(s,"###",c);
 		this.symbol = "\u03b5";
-		this.name = s+"-\u03b5->"+c;
 	}
+
+	public EpsilonTransition(Etat s, Etat c) throws JFSMException {
+		this(s.name,c.name);
+	}	
 
 	public boolean candidate(String etat, String symbol) {
 		return etat.equals(source) ;

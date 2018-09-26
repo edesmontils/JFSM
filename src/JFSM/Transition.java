@@ -38,7 +38,9 @@ package JFSM;
  */
 
 public class Transition implements Cloneable {
-	public String name;
+	static public int nb = 0;
+
+	public int no;
 	public String source, cible;
 	public String symbol;
 
@@ -46,23 +48,44 @@ public class Transition implements Cloneable {
 		if (symbol==null) throw new JFSMException("Un symbole ne peut pas être absent");
 		if ((symbol.equals(""))||(symbol.equals("\u03b5"))) 
 			throw new JFSMException("Un symbole ne peut pas être vide ou \u03b5");
+
+		Transition.nb++;
+		this.no = Transition.nb;
+
 		this.source = s;
 		this.cible = c;
 		this.symbol = symbol;
-		this.name = s+"-"+symbol+"->"+c;
 	}
 
+	public Transition(Etat s, String symbol, Etat c) throws JFSMException {
+		this(s.name,symbol,c.name);
+	}	
+
+	public Transition(Transition t) throws JFSMException {
+		this(t.source,t.symbol,t.cible);
+	}	
+
 	public Object clone() {
-		Object o = null;
+		Transition o = null;
 		try {
-			o = super.clone();
+			o = (Transition)super.clone();
+			Transition.nb++;
+			o.no = Transition.nb;
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}
 		return o;
 	}
 
-	public String toString(){return name;}
+	public String toString(){return "("+no+") "+source+"-"+symbol+"->"+cible;}
+
+	/** 
+	* Modidifie l'état source de la transition  
+	* @param s Le nom de l'état source
+	*/
+	public void changeSource(String s) {
+		this.source = s;
+	}
 
 	/** 
 	* Indique si la transition peut être appliquée depuis cet état sur ce symbole.  

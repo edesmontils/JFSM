@@ -27,7 +27,6 @@
 
 package JFSM.Transducteur;
 
-
 /**
  * TransitionMealy.java
  *
@@ -40,6 +39,7 @@ package JFSM.Transducteur;
 
 import JFSM.Transition ;
 import JFSM.JFSMException ;
+import JFSM.Etat ;
 
 public class TransitionMealy extends Transition {
 	public String prod ;
@@ -47,5 +47,9 @@ public class TransitionMealy extends Transition {
 	public TransitionMealy(String s, String symbolIn, String symbolOut, String c) throws JFSMException {
 		super(s,symbolIn,c);
 		prod = symbolOut ;
+	}
+
+	public TransitionMealy(Etat s, String symbolIn, String symbolOut, Etat c) throws JFSMException {
+		this(s.name,symbolIn,symbolOut,c.name);
 	}
 }
