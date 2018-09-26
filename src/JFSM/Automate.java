@@ -398,6 +398,7 @@ public class Automate implements Cloneable {
 	/** 
 	* Détermine des transitions possibles que peut emprunter l'automate en fonction de l'état courant et du symbole courant
 	* @param symbol le symbole
+	* @exception JFSMException Exception levée si la méthode n'est pas implémentée
 	* @return la liste des transitions possibles 
 	*/
 	public Queue<Transition> next(String symbol) throws JFSMException  {
@@ -408,6 +409,7 @@ public class Automate implements Cloneable {
 	* Exécute l'automate sur un mot (une liste de symboles)
 	* @param l la liste de symboles
 	* @return un booléen indiquant sur le mot est reconnu 
+	* @exception JFSMException Exception levée si la méthode n'est pas implémentée
 	*/
 	public boolean run(List<String> l) throws JFSMException  {
 		throw new JFSMException("Méthode run non implémentée");
@@ -434,7 +436,6 @@ public class Automate implements Cloneable {
 	}
 
 }
-
 
 class JFLAPHandler extends DefaultHandler {
 	String cdc ;
