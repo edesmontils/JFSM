@@ -56,14 +56,11 @@ public class JFSM {
       A.add("a");A.add("b");A.add("c");
 
       Set<Etat> Q = new HashSet<Etat>();
-      Q.add(new Etat("0"));Q.add(new Etat("1"));Q.add(new Etat("2"));
+      Q.add(new Etat("1"));Q.add(new Etat("2"));
       Q.add(new Etat("3"));Q.add(new Etat("4"));Q.add(new Etat("5"));
-      Q.add(new Etat("6"));Q.add(new Etat("7"));Q.add(new Etat("8"));
 
       Set<Transition> mu = new HashSet<Transition>();
-      mu.add(new Transition("0","b","3"));
       mu.add(new Transition("1","a","2"));
-      // mu.add(new Transition("1","a","4"));
       mu.add(new Transition("1","b","4"));
       mu.add(new Transition("2","b","3"));
       mu.add(new Transition("2","c","4"));
@@ -71,8 +68,7 @@ public class JFSM {
       mu.add(new Transition("3","b","4"));
       mu.add(new Transition("4","a","5"));
       mu.add(new Transition("5","c","5"));
-      mu.add(new Transition("6","c","2"));
-      mu.add(new Transition("3","c","7"));
+
 
       Set<String> F = new HashSet<String>();
       F.add("5");
