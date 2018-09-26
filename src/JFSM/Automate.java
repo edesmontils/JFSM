@@ -52,7 +52,14 @@ import java.util.Iterator;
 
 import java.util.Stack;
 
-public abstract class Automate implements Cloneable {
+import org.xml.sax.*;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.XMLReaderFactory;
+import javax.xml.parsers.SAXParserFactory; 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+
+public class Automate implements Cloneable {
 	public Map<String,Etat> Q;
 	public Set<String> F, I;
 	public Set<String> A;
@@ -393,12 +400,122 @@ public abstract class Automate implements Cloneable {
 	* @param symbol le symbole
 	* @return la liste des transitions possibles 
 	*/
-	public abstract Queue<Transition> next(String symbol);
+	public Queue<Transition> next(String symbol) throws JFSMException  {
+		throw new JFSMException("Méthode next non implémentée");
+	}
 
 	/** 
 	* Exécute l'automate sur un mot (une liste de symboles)
 	* @param l la liste de symboles
 	* @return un booléen indiquant sur le mot est reconnu 
 	*/
-	public abstract boolean run(List<String> l) ;
+	public boolean run(List<String> l) throws JFSMException  {
+		throw new JFSMException("Méthode run non implémentée");
+	}
+
+	/** 
+	* Charge un automate construit avec JFLAP au format XML "JFLAP 4".
+	* @param file le nom du fichier
+	* @return un automate 
+	*/
+	static public Automate load(String file) {
+		JFLAPHandler handler = new JFLAPHandler();
+		try {
+			XMLReader saxParser = XMLReaderFactory.createXMLReader();
+			saxParser.setContentHandler(handler);
+			saxParser.setErrorHandler(handler);
+			saxParser.parse( file ); 
+		} catch (Exception e) {
+			System.out.println("Exception capturée : ");
+			e.printStackTrace(System.out);
+			return null;
+		}
+		return handler.res;
+	}
+
 }
+
+
+class JFLAPHandler extends DefaultHandler {
+	String cdc ;
+	public Set<Etat> Q;
+	public Set<String> F, I;
+	public Set<String> A;
+	public Set<Transition> mu;
+	private Etat e;
+	private Transition t;
+	private String from, to, read, state_name, state_id;
+	private boolean final_state, initial_state;
+	public Automate res ;
+
+	public JFLAPHandler() {super();}
+
+	public void characters(char[] caracteres, int debut, int longueur) {
+		cdc = new String(caracteres,debut,longueur);
+	}
+
+	public void startDocument() {
+		cdc="";
+		A = new HashSet<String>();
+		I = new HashSet<String>();
+		F = new HashSet<String>();
+		Q = new HashSet<Etat>();
+		mu = new HashSet<Transition>();
+		res = null;
+	}
+
+	public void endDocument() {
+		try{
+			res = new AFN(A,Q,I,F,mu);
+		} catch (JFSMException e) {
+				System.out.println("Erreur:"+e);
+		}
+	}
+
+	public void startElement(String namespaceURI, String sName, String name, Attributes attrs) {
+		if (name=="state") {
+			state_name = attrs.getValue("name");
+			state_id = attrs.getValue("id");
+			final_state = false;
+			initial_state = false;
+		} else if (name=="initial") {
+			initial_state = true;
+		} else if (name=="final") {
+			final_state = true;
+		}
+		cdc="";
+	}
+
+	public void endElement(String uri, String localName, String name) {
+		if (name=="state") {
+			e = new Etat(state_id);
+			Q.add(e);
+			if (initial_state) I.add(state_id);
+			if (final_state) F.add(state_id);
+		} else if (name=="transition") {
+			try{
+				if (read!="") {
+					A.add(read);
+					Transition t = new Transition(from,read,to);
+					mu.add(t);
+				} else {
+					EpsilonTransition t = new EpsilonTransition(from,to);
+					mu.add(t);
+				}
+			} catch (JFSMException e) {
+				System.out.println("Erreur:"+e);
+			}
+		} else if (name=="type") {
+		
+		} else if (name=="from") {
+			from = cdc;
+		} else if (name=="to") {
+			to = cdc;
+		} else if (name=="read") {
+			read = cdc;
+		}
+	}
+}
+
+
+
