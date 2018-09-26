@@ -62,9 +62,9 @@ public class JFSM {
       Q.add(new Etat("6"));Q.add(new Etat("7"));Q.add(new Etat("8"));
 
       Set<Transition> mu = new HashSet<Transition>();
-      // mu.add(new Transition("0","b","3"));
+      mu.add(new Transition("0","b","3"));
       mu.add(new Transition("1","a","2"));
-      // mu.add(new Transition("1","a","4"));
+      mu.add(new Transition("1","a","4"));
       mu.add(new Transition("1","b","4"));
       mu.add(new Transition("2","b","3"));
       mu.add(new Transition("2","c","4"));
@@ -74,15 +74,12 @@ public class JFSM {
       mu.add(new Transition("5","c","5"));
       mu.add(new Transition("6","c","2"));
       mu.add(new Transition("3","c","7"));
-      // mu.add(new EpsilonTransition("3","5"));
 
       Set<String> F = new HashSet<String>();
       F.add("5");
       F.add("4");
-      // Set<String> I = new HashSet<String>();
-      // I.add("1");
-      // I.add("0");
-      Automate afn = new AFD(A, Q, "1", F, mu);
+      F.add("1");
+      Automate afn = new AFN(A, Q, "1", F, mu);
 
       List<String> l = new ArrayList<String>();
       l.add("a");l.add("b");l.add("a");l.add("c");
@@ -92,44 +89,8 @@ public class JFSM {
       System.out.println(afn.emonder());
 
       System.out.println("Standard ? "+afn.estStandard());
+      Automate a = afn.standardiser();
+      System.out.println(a);
       System.out.println("Epsilon Libre ? "+afn.epsilonLibre());
-
-  //   	Set<String> A = new HashSet<String>();      
-  //   	A.add("a");A.add("b");A.add("c");
-
-  //   	Set<Etat> Q = new HashSet<Etat>();
-  //   	Q.add(new Etat("1"));Q.add(new Etat("2"));Q.add(new Etat("3"));
-
-  //   	Set<Transition> mu = new HashSet<Transition>();
-  //   	mu.add(new TransitionMealy("1","a","1","2"));
-  //   	mu.add(new TransitionMealy("1","b","0","3"));
-  //   	mu.add(new TransitionMealy("2","a","0","1"));
-  //   	mu.add(new TransitionMealy("2","c","1","3"));
-  //   	mu.add(new TransitionMealy("2","b","1","2"));
-  //   	mu.add(new TransitionMealy("3","b","0","2"));
-
-  //   	Set<String> F = new HashSet<String>();
-  //   	F.add("3");
-  //   	Mealy afn = new Mealy(A, Q, "1", F, mu);
-
-  //   	List<String> l = new ArrayList<String>();
-  //   	l.add("a");l.add("c");
-  //   	afn.run(l);
-  //   	System.out.println(afn.accepte());
-  //   	System.out.println(afn.histo);
-  //   	System.out.println(afn.res);
-
-  //   	afn.run(l);
-  //   	System.out.println(afn.accepte());
-  //   	System.out.println(afn.histo);
-
-
-		// Set<Etat> Q2 = new HashSet<Etat>();
-  //   	Q2.add(new EtatMoore("1","0"));Q2.add(new EtatMoore("2","1"));Q2.add(new EtatMoore("3","0"));
-  //   	Moore afn2 = new Moore(A,Q2,"1",F,mu);
-  //   	afn2.run(l);
-  //   	System.out.println(afn2.accepte());
-  //   	System.out.println(afn2.histo);
-  //   	System.out.println(afn2.res);    	
    }
 }

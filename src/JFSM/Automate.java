@@ -66,7 +66,6 @@ public class Automate implements Cloneable {
 	public Stack<Transition> histo;
 	public Set<Transition> mu;
 	protected String current;
-	// protected Etat trash;
 
 	/** 
 	* Constructeur de l'automate {A,Q,I,F,mu}

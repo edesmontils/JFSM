@@ -59,7 +59,10 @@ public class AFD extends Automate {
 		setInitial(i);
 		this.i = i;
 		assert testDeterminisme(this) : "L'automate doit être déterministe";
-		init();
+	}
+
+	public AFD(Automate a)  throws JFSMException {
+		this(a.A, new HashSet(a.Q.values()), (String)a.I.iterator().next() , a.F, a.mu);
 	}
 
 	public void init() {
