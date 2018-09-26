@@ -466,7 +466,7 @@ class JFLAPHandler extends DefaultHandler {
 
 	public void endDocument() {
 		try{
-			res = new AFN(A,Q,I,F,mu);
+			res = new Automate(A,Q,I,F,mu);
 		} catch (JFSMException e) {
 				System.out.println("Erreur:"+e);
 		}
