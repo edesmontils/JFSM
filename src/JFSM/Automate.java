@@ -391,11 +391,58 @@ public class Automate implements Cloneable {
 	/** 
 	* Construit un automate reconnaissant l'union du langage de l'automate avec celui de "a" : L(this) U L(a)
 	* @param a un Automate
-	* @return un automate reconnaissant le produit
+	* @return un automate reconnaissant l'union
 	*/
 	public Automate union(Automate a) {
 		System.out.println("union() : méthode non implémentée");
 		return a;
+	}
+
+	/** 
+	* Construit un automate reconnaissant l'intersection du langage de l'automate avec celui de "a" 
+	* @param a un Automate
+	* @return un automate reconnaissant l'intersection
+	*/
+	public Automate intersection(Automate a) {
+		System.out.println("intersection() : méthode non implémentée");
+		return a;
+	}
+
+	/** 
+	* Construit un automate reconnaissant le complémentaire du langage 
+	* @return un automate reconnaissant le complémentaire
+	*/
+	public Automate complementaire() {
+		System.out.println("complémentaire() : méthode non implémentée");
+		return this;
+	}
+
+	/** 
+	* Construit un automate complet
+	* @return l'automate complet
+	*/
+	public Automate complet() {
+		System.out.println("complet() : méthode non implémentée");
+		return this;
+	}
+
+
+	/** 
+	* Teste si un automate est complet
+	* @return booléen
+	*/
+	public boolean estComplet() {
+		System.out.println("estComplet() : méthode non implémentée");
+		return true;
+	}
+
+	/** 
+	* Construit un automate reconnaissant le langage transposé
+	* @return l'automate complet
+	*/
+	public Automate transpose() {
+		System.out.println("transpose() : méthode non implémentée");
+		return this;
 	}
 
 	/** 
