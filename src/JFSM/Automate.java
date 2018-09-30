@@ -426,7 +426,6 @@ public class Automate implements Cloneable {
 		return this;
 	}
 
-
 	/** 
 	* Teste si un automate est complet
 	* @return booléen
