@@ -83,11 +83,14 @@ public class JFSM {
       System.out.println(afn.run(l));
       System.out.println(afn.emonder());
 
-      System.out.println("Standard ? "+afn.estStandard());
-      Automate a = afn.standardiser();
-      System.out.println(a);
+      System.out.println(afn);
       System.out.println("Epsilon Libre ? "+afn.epsilonLibre());
 
       afn.save("test.jff");
+
+      Automate afn2 = Automate.load("essai.jff");
+      System.out.println(afn2.getClass().getName());
+      System.out.println(afn2);
+
    }
 }

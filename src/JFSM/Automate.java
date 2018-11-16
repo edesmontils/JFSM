@@ -515,7 +515,11 @@ public class Automate implements Cloneable {
 			e.printStackTrace(System.out);
 			return null;
 		}
-		return handler.res;
+		try {
+			if (AFD.testDeterminisme(handler.res) ) 
+				return new AFD(handler.res) ;
+				else return new AFN(handler.res) ;
+		} catch (JFSMException e) {return null;}
 	}
 
 }
