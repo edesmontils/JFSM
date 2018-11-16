@@ -77,7 +77,8 @@ public class Transition implements Cloneable {
 		return o;
 	}
 
-	public String toString(){return "("+no+") "+source+"-"+symbol+"->"+cible;}
+	// public String toString(){return "("+no+") "+source+"-"+symbol+"->"+cible;}
+	public String toString(){return source+"-"+symbol+"->"+cible;}
 
 	/** 
 	* Modidifie l'état source de la transition  
