@@ -57,6 +57,7 @@ java -cp .:bin -ea monproj
     	Set<String> F = new HashSet<String>();
     	F.add("3");
     	Automate afn = new AFD(A, Q, "1", F, mu);
+        afn.init();
     	afn.next("a");
     	afn.next("c");
     	System.out.println(afn.accepte());
