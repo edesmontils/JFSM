@@ -117,12 +117,20 @@ public class Automate implements Cloneable {
 		Automate o = null;
 		try {
 			o = (Automate)super.clone();
-			o.Q = (Map<String,Etat>) ((HashMap<String,Etat>)Q).clone() ;
+			// o.Q = (Map<String,Etat>) ((HashMap<String,Etat>)Q).clone() ;
+			o.Q = new HashMap<String,Etat>();
+			for(Etat e : this.Q.values()) {
+				o.addEtat((Etat)e.clone());
+			}
 			o.F = (Set<String>)  ((HashSet<String>)F).clone();
 			o.I = (Set<String>)  ((HashSet<String>)I).clone();
 			o.A = (Set<String>)  ((HashSet<String>)A).clone();
 			o.histo = (Stack<Transition>) ((Stack<Transition>)histo).clone();
-			o.mu = (Set<Transition>) ((HashSet<Transition>)mu).clone();
+			//o.mu = (Set<Transition>) ((HashSet<Transition>)mu).clone();
+			o.mu = new HashSet<Transition>();
+			for(Transition t : this.mu) {
+				o.addTransition((Transition)t.clone());
+			}
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}
@@ -133,7 +141,7 @@ public class Automate implements Cloneable {
 		String s = "{ A={ ";
 		for(String a : A ) s = s + a + " ";
 		s = s + "} Q={ ";
-		for(String q : Q.keySet() ) s = s + q + " ";
+		for(Etat q : Q.values() ) s = s + q + " ";
 		s = s + "} I={ " ;
 		for(String q : I ) s = s + q + " ";
 		s = s + "} F={ " ;

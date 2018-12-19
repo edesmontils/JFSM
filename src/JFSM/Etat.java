@@ -48,6 +48,14 @@ public class Etat  implements Cloneable {
 		Etat.nb++;
 		this.no = Etat.nb;
 	}
+
+	public String toString() {
+		return this.name;//+'('+this.no+')';
+	}
+
+	public void rename(String newName) {
+		this.name = newName ;
+	}
 	
 	public Object clone() {
 		Etat o = null;
