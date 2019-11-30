@@ -569,46 +569,57 @@ class JFLAPHandler extends DefaultHandler {
 	}
 
 	public void startElement(String namespaceURI, String sName, String name, Attributes attrs) {
-		if (name=="state") {
-			state_name = attrs.getValue("name");
-			state_id = attrs.getValue("id");
-			final_state = false;
-			initial_state = false;
-		} else if (name=="initial") {
-			initial_state = true;
-		} else if (name=="final") {
-			final_state = true;
+		switch (name) {
+			case "state":
+				state_name = attrs.getValue("name");
+				state_id = attrs.getValue("id");
+				final_state = false;
+				initial_state = false;
+				break;
+			case "initial":
+				initial_state = true;
+				break;
+			case "final":
+				final_state = true;
+				break;
 		}
 		cdc="";
 	}
 
 	public void endElement(String uri, String localName, String name) {
-		if (name=="state") {
-			e = new Etat(state_id);
-			Q.add(e);
-			if (initial_state) I.add(state_id);
-			if (final_state) F.add(state_id);
-		} else if (name=="transition") {
-			try{
-				if (read!="") {
-					A.add(read);
-					Transition t = new Transition(from,read,to);
-					mu.add(t);
-				} else {
-					EpsilonTransition t = new EpsilonTransition(from,to);
-					mu.add(t);
+		switch (name) {
+			case "state":
+				e = new Etat(state_id);
+				Q.add(e);
+				if (initial_state) I.add(state_id);
+				if (final_state) F.add(state_id);
+				break;
+			case "transition":
+				try {
+					if (!read.equals("")) {
+						A.add(read);
+						Transition t = new Transition(from, read, to);
+						mu.add(t);
+					} else {
+						EpsilonTransition t = new EpsilonTransition(from, to);
+						mu.add(t);
+					}
+				} catch (JFSMException e) {
+					System.out.println("Erreur:" + e);
 				}
-			} catch (JFSMException e) {
-				System.out.println("Erreur:"+e);
-			}
-		} else if (name=="type") {
-		
-		} else if (name=="from") {
-			from = cdc;
-		} else if (name=="to") {
-			to = cdc;
-		} else if (name=="read") {
-			read = cdc;
+				break;
+			case "type":
+
+				break;
+			case "from":
+				from = cdc;
+				break;
+			case "to":
+				to = cdc;
+				break;
+			case "read":
+				read = cdc;
+				break;
 		}
 	}
 }
