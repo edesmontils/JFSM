@@ -68,5 +68,30 @@ public class Etat  implements Cloneable {
 		}
 		return o;
 	}
+
+	/**
+	* Permet de vérifier si 2 états sont identiques
+	* Permet aussi de comparer String et Etat, un état n'étant que défini par son nom
+	* @return boolean
+	*/
+	public boolean equals(Object obj){
+		if(obj instanceof Etat){
+			Etat etat = (Etat) obj;
+			return this.name.equals(etat.name);
+
+		}else if(obj instanceof String){
+			String etat = (String) obj;
+			return this.name.equals(etat);
+		}
+		return false;
+	}
+
+	/**
+	 * Permet de faire des HashSets d'Etats sans avoir de doublons
+	 * @return int
+	 * */
+	public int hashCode(){
+		return this.name.hashCode();
+	}
 }
 
