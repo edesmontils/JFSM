@@ -106,4 +106,24 @@ public class Transition implements Cloneable {
 		return cible ;
 	}
 
+	/**
+	 * Vérifie si les 2 transitions sont identiques
+	 * @return booléen
+	 */
+	public boolean equals(Object obj) {
+		if(obj instanceof Transition){
+			Transition trans = (Transition) obj;
+			return this.hashCode() == trans.hashCode();
+		}
+		return false;
+	}
+
+	/**
+	 * Intégrer la méthode hashCode() pour vérifier si 2 transitions sont les mêmes
+	 * Permet d'utiliser Set<Transition>.contains(Transition) et de ne pas ajouter de doublons
+	 * @return int
+	 */
+	public int hashCode() {
+		return this.source.hashCode() + this.symbol.hashCode() + this.cible.hashCode();
+	}
 }
